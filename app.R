@@ -6,6 +6,7 @@ source(file = "functions_final_project.R", local = T)
 
 
 ui <- fluidPage(
+  theme = bslib::bs_theme(bootswatch = "darkly"),
   
   # Application title
   titlePanel("EL PELIROSTER"),
