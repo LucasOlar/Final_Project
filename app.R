@@ -25,8 +25,8 @@ ui <- fluidPage(
       dateInput("date_before", "FILMS BEFORE", value = "2017-02-03", format = "dd-mm-yyyy"),
       dateInput("date_after", "FILMS AFTER", value = "1916-09-04", format = "dd-mm-yyyy"),
       selectInput("original_language", "ORIGINAL LANGUAGE", 
-                  c("All", "en", "ja", "fr", "zh", "es", "de", "hi", "ru", "ko", "te", "cn", "it", "nl", "ta", "sv", "th", "da", "xx", "hu", "cs",
-                    "pt", "is", "tr", "nb", "af", "pl", "he", "ar", "vi", "ky", "id", "ro", "fa", "no", "sl", "ps", "el"
+                  c("All", "English", "Japanese", "French", "Chinese", "Spanish", "German", "Hindi", "Russian", "Korean", "Telugu", "cn", "Italian", "Dutch", "Tamil", "Swedish", "Thai", "Danish", "xx", "Hungarian", "Czech",
+                    "Portuguese", "Icelandic", "Turkish", "Norwegian Bokmål", "Afrikaans", "Polish", "Hebrew", "Arabic", "Vietnamese", "Kyrgyz", "Indonesian", "Romanian", "Persian", "Norwegian", "Slovenian", "Pashto", "Greek"
                     ), selected = NULL, multiple = FALSE, width = NULL),
       selectInput("spoken_languages", "DUBBED LANGUAGE", 
                   c("All", "English", "Español", "Français", "Italiano", "Deutsch", "Türkçe", "ελληνικά", "普通话", "ภาษาไทย", "Íslenska",  "Pусский", "svenska",
