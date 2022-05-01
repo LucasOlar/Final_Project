@@ -25,8 +25,8 @@ ui <- fluidPage(
       dateInput("date_before", "FILMS BEFORE", value = "2017-02-03", format = "dd-mm-yyyy"),
       dateInput("date_after", "FILMS AFTER", value = "1916-09-04", format = "dd-mm-yyyy"),
       selectInput("original_language", "ORIGINAL LANGUAGE", 
-                  c("All", "English", "Japanese", "French", "Chinese", "Spanish", "German", "Hindi", "Russian", "Korean", "Telugu", "cn", "Italian", "Dutch", "Tamil", "Swedish", "Thai", "Danish", "xx", "Hungarian", "Czech",
-                    "Portuguese", "Icelandic", "Turkish", "Norwegian Bokmål", "Afrikaans", "Polish", "Hebrew", "Arabic", "Vietnamese", "Kyrgyz", "Indonesian", "Romanian", "Persian", "Norwegian", "Slovenian", "Pashto", "Greek"
+                  c("All", "English" = "en", "Japanese" = "ja", "French" = "fr", "Chinese" = "zh", "Spanish" = "es", "German" = "de", "Hindi" = "hi", "Russian" = "ru", "Korean" = "ko", "Telugu" = "te", "cn", "Italian" = "it", "Dutch" = "nl", "Tamil" = "ta", "Swedish" = "sv", "Thai" = "th", "Danish" = "da", "xx", "Hungarian" = "hu", "Czech" = "cs",
+                    "Portuguese" = "pt", "Icelandic" = "is", "Turkish" = "tr", "Norwegian Bokmål" = "nb", "Afrikaans" = "af", "Polish" = "pl", "Hebrew" = "he", "Arabic" = "ar", "Vietnamese" = "vi", "Kyrgyz" = "ky", "Indonesian" = "id", "Romanian" = "ro", "Persian" = "fa", "Norwegian" = "no", "Slovenian" = "sl", "Pashto"= "ps", "Greek" = "el"
                     ), selected = NULL, multiple = FALSE, width = NULL),
       selectInput("spoken_languages", "DUBBED LANGUAGE", 
                   c("All", "English", "Español", "Français", "Italiano", "Deutsch", "Türkçe", "ελληνικά", "普通话", "ภาษาไทย", "Íslenska",  "Pусский", "svenska",
@@ -35,14 +35,15 @@ ui <- fluidPage(
                     "Esperanto" , "Polski", "ਪੰਜਾਬੀ", "Eesti","shqip","Srpski","Bosanski","Hrvatski","Slovenčina","қазақ","తెలుగు", "Cymraeg","Wolof","isiZulu",
                     "پښتو", "No Language",  "Galego","ქართული"  , "বাংলা" , "Català", "Bahasa indonesia" , "Bamanankan" ,"Slovenščina"  
                     ), selected = NULL, multiple = FALSE, width = NULL),
-      actionBttn("compute", "Confirm Criteria", style = "fill", color = "success", icon = icon("film"))
+      actionBttn("compute", "ENJOY YOUR GABAGOO", style = "fill", color = "success", icon = icon("film"))
     ),
     
     # Show a plot of the generated distribution
     mainPanel(
       tabsetPanel(
         tabPanel("RECOMMENDATIONS", tableOutput("peli")),
-        tabPanel("RANDOMIZER"),
+        tabPanel("PELIROSTED"),
+        tabPanel("PELIRANDOM")
       ),
     )
   )
