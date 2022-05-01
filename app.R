@@ -1,4 +1,5 @@
 
+library(shinyWidgets)
 library(shiny)
 
 source(file = "functions_final_project.R", local = T)
@@ -20,9 +21,9 @@ ui <- fluidPage(
                                            "Music", "Documentary", "Foreign", "TV Movie"), selected = NULL, multiple = FALSE, width = NULL),
       sliderInput("vote_average", "AVERAGE RATING", min = 0, max = 10, value = 5),
       sliderInput("popularity", "POPULARITY", min = 0, max = 150, value = 75),
-      sliderInput("runtime", "HOW LONG (IN MINUTES)", min = 0, max = 340, value = 170),
-      dateInput("date_before", "FILMS BEFORE", value = "2017-02-03"),
-      dateInput("date_after", "FILMS AFTER", value = "1916-09-04"),
+      sliderInput("runtime", "MAXIMUM LENGTH (MINUTES)", min = 0, max = 340, value = 170),
+      dateInput("date_before", "FILMS BEFORE", value = "2017-02-03", format = "dd-mm-yyyy"),
+      dateInput("date_after", "FILMS AFTER", value = "1916-09-04", format = "dd-mm-yyyy"),
       selectInput("original_language", "ORIGINAL LANGUAGE", 
                   c("All", "en", "ja", "fr", "zh", "es", "de", "hi", "ru", "ko", "te", "cn", "it", "nl", "ta", "sv", "th", "da", "xx", "hu", "cs",
                     "pt", "is", "tr", "nb", "af", "pl", "he", "ar", "vi", "ky", "id", "ro", "fa", "no", "sl", "ps", "el"
@@ -34,7 +35,7 @@ ui <- fluidPage(
                     "Esperanto" , "Polski", "ਪੰਜਾਬੀ", "Eesti","shqip","Srpski","Bosanski","Hrvatski","Slovenčina","қазақ","తెలుగు", "Cymraeg","Wolof","isiZulu",
                     "پښتو", "No Language",  "Galego","ქართული"  , "বাংলা" , "Català", "Bahasa indonesia" , "Bamanankan" ,"Slovenščina"  
                     ), selected = NULL, multiple = FALSE, width = NULL),
-      actionButton("compute", "CONFIRM CRITERIA")
+      actionBttn("compute", "Confirm Criteria", style = "fill", color = "success", icon = icon("film"))
     ),
     
     # Show a plot of the generated distribution
@@ -64,8 +65,9 @@ server <- function(input, output) {
   })
   
   output$peli <- renderTable({
-    data_recommend()
+    choose_movie(data_recommend())
   })
+  
 }
 
 # Run the application 

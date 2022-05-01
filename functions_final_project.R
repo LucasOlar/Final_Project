@@ -105,15 +105,10 @@ return(movies_recommendation)
 }
 
 
-#Test
-  # data_recommend_new <- data_filter(
-  #   genre_1 = "Action",
-  #   genre_2 = "Comedy", 
-  #   vote_average_input = 3,
-  #   popularity_input = 39, 
-  #   date_before = as.Date(c("2017-06-22")),
-  #   date_after = as.Date(c("2007-06-22")),
-  #   runtime_input = 200,
-  #   original_language_input = "en",
-  #   spoken_languages_input = "Español")
+#Now we want to make another function that selects a film at random form this list 
+choose_movie = function(df){
+  random_number = round(runif(1, min = 1, max = nrow(df)), 0)
+  random_movie = df[random_number,]
+  return(random_movie)
+}
 
