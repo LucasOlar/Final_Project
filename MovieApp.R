@@ -24,7 +24,7 @@ ui <- fluidPage(
   tabsetPanel(
     id = "tabset",
     tabPanel("PeliRecommend",
-      icon = icon("film"),
+      icon = icon("random"),
       fluid = TRUE,
       sidebarLayout(
         position = "right",
@@ -130,7 +130,7 @@ ui <- fluidPage(
         mainPanel(withSpinner(tableOutput("search")))
       )
     ),
-    tabPanel("PeliRandom", icon = icon("random"), )
+    tabPanel("PeliDaily", icon = icon("calendar"), )
   )
 )
 
