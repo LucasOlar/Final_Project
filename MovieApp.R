@@ -85,12 +85,7 @@ ui <- fluidPage(
           br(),
           selectInput("country", "PRODUCTION COUNTRY", list(
             "All",
-            "Europe" = c(
-              "United Kingdom", "France", "Germany", "Norway", "Russia", "Spain", "Monaco", "Switzerland", "Hungary", "Italy", "Belgium",
-              "Romania", "Sweden", "Netherlands", "Czech Republic", "Portugal", "Ireland", "Poland", "Greece", "Slovenia", "Slovakia", "Finland", "Malta", "Iceland",
-              "Denmark", "Bulgaria", "Tunisia", "Luxembourg", "Bosnia and Herzegovina", "Serbia", "Ukraine", "Lithuania", "Austria", "Turkey", "Cyprus",
-              "Serbia and Montenegro"
-            ), sort("Europe", decreasing = FALSE),
+            "Africa" = c("Morocco", "South Africa", "Libyan Arab Jamahiriya", "Nigeria", "Egypt", "Algeria", "Angola", "Cameroon", "Kenya"), sort("Africa", decreasing = FALSE),
             "America" = c(
               "United States of America", "Canada", "Mexico", "Brazil", "Jamaica", "Bahamas", "Dominica", "Peru", "Chile", "Argentina", "Panama", "Aruba", "Bolivia",
               "Ecuador", "Colombia", "Guyana", "Guadaloupe", "Dominican Republic"
@@ -100,7 +95,12 @@ ui <- fluidPage(
               "United Arab Emirates", "Pakistan", "Kazakhstan", "Cambodia", "Thailand", "Israel", "Fiji", "Jordan", "Bhutan", "Lebanon", "Kyrgyz Republic",
               "Indonesia", "Iran", "Afghanistan"
             ), sort("Asia-Oceania", decreasing = FALSE),
-            "Africa" = c("Morocco", "South Africa", "Libyan Arab Jamahiriya", "Nigeria", "Egypt", "Algeria", "Angola", "Cameroon", "Kenya"), sort("Africa", decreasing = FALSE)
+            "Europe" = c(
+              "United Kingdom", "France", "Germany", "Norway", "Russia", "Spain", "Monaco", "Switzerland", "Hungary", "Italy", "Belgium",
+              "Romania", "Sweden", "Netherlands", "Czech Republic", "Portugal", "Ireland", "Poland", "Greece", "Slovenia", "Slovakia", "Finland", "Malta", "Iceland",
+              "Denmark", "Bulgaria", "Tunisia", "Luxembourg", "Bosnia and Herzegovina", "Serbia", "Ukraine", "Lithuania", "Austria", "Turkey", "Cyprus",
+              "Serbia and Montenegro"
+            ), sort("Europe", decreasing = FALSE)
           ), selected = NULL, multiple = FALSE, width = NULL)
         ),
         mainPanel(withSpinner(tableOutput("recommend")))
