@@ -90,17 +90,17 @@ ui <- fluidPage(
               "Romania", "Sweden", "Netherlands", "Czech Republic", "Portugal", "Ireland", "Poland", "Greece", "Slovenia", "Slovakia", "Finland", "Malta", "Iceland",
               "Denmark", "Bulgaria", "Tunisia", "Luxembourg", "Bosnia and Herzegovina", "Serbia", "Ukraine", "Lithuania", "Austria", "Turkey", "Cyprus",
               "Serbia and Montenegro"
-            ),
+            ), sort("Europe", decreasing = FALSE),
             "America" = c(
               "United States of America", "Canada", "Mexico", "Brazil", "Jamaica", "Bahamas", "Dominica", "Peru", "Chile", "Argentina", "Panama", "Aruba", "Bolivia",
               "Ecuador", "Colombia", "Guyana", "Guadaloupe", "Dominican Republic"
-            ),
+            ), sort("America", decreasing = FALSE),
             "Asia-Oceania" = c(
               "New Zealand", "China", "Japan", "Australia", "India", "South Korea", "Hong Kong", "Taiwan", "Singapore", "Malaysia", "Philippines", "Turkey",
               "United Arab Emirates", "Pakistan", "Kazakhstan", "Cambodia", "Thailand", "Israel", "Fiji", "Jordan", "Bhutan", "Lebanon", "Kyrgyz Republic",
               "Indonesia", "Iran", "Afghanistan"
-            ),
-            "Africa" = c("Morocco", "South Africa", "Libyan Arab Jamahiriya", "Nigeria", "Egypt", "Algeria", "Angola", "Cameroon", "Kenya")
+            ), sort("Asia-Oceania", decreasing = FALSE),
+            "Africa" = c("Morocco", "South Africa", "Libyan Arab Jamahiriya", "Nigeria", "Egypt", "Algeria", "Angola", "Cameroon", "Kenya"), sort("Africa", decreasing = FALSE)
           ), selected = NULL, multiple = FALSE, width = NULL)
         ),
         mainPanel(withSpinner(tableOutput("recommend")))
