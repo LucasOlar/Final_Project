@@ -94,12 +94,7 @@ ui <- fluidPage(
               "United Arab Emirates", "Pakistan", "Kazakhstan", "Cambodia", "Thailand", "Israel", "Fiji", "Jordan", "Bhutan", "Lebanon", "Kyrgyz Republic",
               "Indonesia", "Iran", "Afghanistan"
             ), sort("Asia-Oceania", decreasing = FALSE),
-            "Europe" = c(
-              "United Kingdom", "France", "Germany", "Norway", "Russia", "Spain", "Monaco", "Switzerland", "Hungary", "Italy", "Belgium",
-              "Romania", "Sweden", "Netherlands", "Czech Republic", "Portugal", "Ireland", "Poland", "Greece", "Slovenia", "Slovakia", "Finland", "Malta", "Iceland",
-              "Denmark", "Bulgaria", "Tunisia", "Luxembourg", "Bosnia and Herzegovina", "Serbia", "Ukraine", "Lithuania", "Austria", "Turkey", "Cyprus",
-              "Serbia and Montenegro"
-            ), sort("Europe", decreasing = FALSE)
+            "Europe" = c("Austria", "Belgium", "Bosnia and Herzegovina", "Bulgaria", "Cyprus", "Czech Republic", "Denmark", "Finland", "France", "Germany", "Greece", "Hungary", "Iceland", "Ireland", "Italy", "Lithuania", "Luxembourg", "Malta", "Monaco", "Netherlands", "Norway", "Poland", "Portugal", "Romania", "Russia", "Serbia", "Serbia and Montenegro", "Slovakia", "Slovenia", "Spain", "Sweden", "Switzerland", "Tunisia", "Turkey", "Ukraine", "United Kingdom"), sort("Europe", decreasing = FALSE)
           ), selected = NULL, multiple = FALSE, width = NULL)
         ),
         mainPanel(withSpinner(tableOutput("recommend")))
