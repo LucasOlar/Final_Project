@@ -85,10 +85,7 @@ ui <- fluidPage(
           selectInput("country", "PRODUCTION COUNTRY", list(
             "All",
             "Africa" = c("Morocco", "South Africa", "Libyan Arab Jamahiriya", "Nigeria", "Egypt", "Algeria", "Angola", "Cameroon", "Kenya"), sort("Africa", decreasing = FALSE),
-            "America" = c(
-              "United States of America", "Canada", "Mexico", "Brazil", "Jamaica", "Bahamas", "Dominica", "Peru", "Chile", "Argentina", "Panama", "Aruba", "Bolivia",
-              "Ecuador", "Colombia", "Guyana", "Guadaloupe", "Dominican Republic"
-            ), sort("America", decreasing = FALSE),
+            "America" = c("Argentina", "Aruba", "Bahamas", "Bolivia", "Brazil", "Canada", "Chile", "Colombia", "Dominica", "Dominican Republic", "Ecuador", "Guadaloupe", "Guyana", "Jamaica", "Mexico", "Panama", "Peru", "United States of America"), sort("America", decreasing = FALSE),
             "Asia-Oceania" = c("Afghanistan", "Australia", "Bhutan", "Cambodia", "China", "Fiji", "Hong Kong", "India", "Indonesia", "Iran", "Israel", "Japan", "Jordan", "Kazakhstan", "Kyrgyz Republic", "Lebanon", "Malaysia", "New Zealand", "Pakistan", "Philippines", "Singapore", "South Korea", "Taiwan", "Thailand", "Turkey", "United Arab Emirates"), sort("Asia-Oceania", decreasing = FALSE),
             "Europe" = c("Austria", "Belgium", "Bosnia and Herzegovina", "Bulgaria", "Cyprus", "Czech Republic", "Denmark", "Finland", "France", "Germany", "Greece", "Hungary", "Iceland", "Ireland", "Italy", "Lithuania", "Luxembourg", "Malta", "Monaco", "Netherlands", "Norway", "Poland", "Portugal", "Romania", "Russia", "Serbia", "Serbia and Montenegro", "Slovakia", "Slovenia", "Spain", "Sweden", "Switzerland", "Tunisia", "Turkey", "Ukraine", "United Kingdom"), sort("Europe", decreasing = FALSE)
           ), selected = NULL, multiple = FALSE, width = NULL)
