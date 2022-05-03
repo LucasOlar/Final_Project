@@ -1,4 +1,3 @@
-
 library(shinyWidgets)
 library(shiny)
 library(shinydashboard)
@@ -130,7 +129,8 @@ ui <- fluidPage(
         mainPanel(withSpinner(tableOutput("search")))
       )
     ),
-    tabPanel("PeliDaily", icon = icon("calendar"), )
+    tabPanel("PeliDaily", icon = icon("calendar"), ),
+    tabPanel("PeliPlane", icon = icon("plane"), )
   )
 )
 
