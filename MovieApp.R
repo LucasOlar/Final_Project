@@ -22,6 +22,7 @@ ui <- fluidPage(
   # Tabset pannel to choose from each tab
   tabsetPanel(
     id = "tabset",
+    tabPanel("PeliDaily", icon = icon("calendar"), ),
     tabPanel("PeliRecommend",
       icon = icon("random"),
       fluid = TRUE,
@@ -54,8 +55,8 @@ ui <- fluidPage(
           br(),
           dateInput("date_after", "FILMS AFTER", value = "1916-09-04", format = "dd-mm-yyyy"),
           br(),
-          br(),
           sliderInput("runtime", "MAXIMUM LENGTH (MINUTES)", min = 0, max = 340, value = 340),
+          br(),
           selectInput("original_language", "ORIGINAL LANGUAGE",
             c("All",
               "English" = "en", "Japanese" = "ja", "French" = "fr", "Chinese" = "zh", "Spanish" = "es", "German" = "de",
@@ -117,8 +118,7 @@ ui <- fluidPage(
         mainPanel(withSpinner(tableOutput("search")))
       )
     ),
-    tabPanel("PeliDaily", icon = icon("calendar"), ),
-    tabPanel("PeliPlane", icon = icon("plane"), )
+    tabPanel("PeliPopCorn", icon = icon("fire"))
   )
 )
 
