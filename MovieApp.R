@@ -8,7 +8,6 @@ library(shinyalert)
 library(bslib)
 
 
-
 source(file = "functions_final_project.R", local = T)
 
 options(spinner.color = "#0dc5c1", spinner.size = 1.4, spinner.type = 6)
@@ -16,6 +15,7 @@ options(spinner.color = "#0dc5c1", spinner.size = 1.4, spinner.type = 6)
 
 # Show all the possible dubs of movies
 df <- data_find("https://raw.githubusercontent.com/rengalv/Movies-Data-Analysis-Grab-a-Popcorn/master/tmdb_5000_movies.csv")
+
 list_spoken_languages <- unlist(strsplit(df$spoken_languages,","))
 list_spoken_languages <- list_spoken_languages[!duplicated(list_spoken_languages)]
 list_spoken_languages <- append( "All", list_spoken_languages)
@@ -44,14 +44,10 @@ list_genres <- append( "All", list_genres)
 ui <- fluidPage(
   shinythemes::themeSelector(),
   theme = bslib::bs_theme(bootswatch = "superhero"),
-
   
     checkboxInput(
       inputId = "themeToggle",
       label = icon("sun")),
-
-  
-
   
   # Application title
   titlePanel(tags$img(src = "MyImage.jpg", height = 200, width = 200)),
