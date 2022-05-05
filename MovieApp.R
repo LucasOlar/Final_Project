@@ -17,7 +17,7 @@ ui <- fluidPage(
   theme = bslib::bs_theme(bootswatch = "darkly"),
   
   # Application title
-  titlePanel("PELIROSTER"),
+  titlePanel(tags$img(src = "MyImage.jpg", height = 200, width = 200)),
   
   # Tabset pannel to choose from each tab
   tabsetPanel(
