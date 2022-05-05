@@ -38,10 +38,7 @@ ui <- fluidPage(
                  selectInput("genre_1", "GENRES 1", c("All","Action","Adventure","Animation","Comedy","Crime","Documentary","Drama","Family","Fantasy","Foreign","History","Horror","Music","Mystery","Romance","Science Fiction","Thriller","TV Movie","War","Western"
                  ), selected = NULL, multiple = FALSE, width = NULL),
                  br(),
-                 selectInput("genre_2", "GENRES 2", c(
-                   "All", "Action", "Adventure", "Fantasy", "Science Fiction", "Crime", "Drama", "Thriller",
-                   "Animation", "Family", "Western", "Comedy", "Romance", "Horror", "Mystery", "History", "War",
-                   "Music", "Documentary", "Foreign", "TV Movie"
+                 selectInput("genre_2", "GENRES 2", c("All","Action","Adventure","Animation","Comedy","Crime","Documentary","Drama","Family","Fantasy","Foreign","History","Horror","Music","Mystery","Romance","Science Fiction","Thriller","TV Movie","War","Western"
                  ), selected = NULL, multiple = FALSE, width = NULL),
                  br(),
                  sliderInput("vote_average", "MINIMUM RATING", min = 0, max = 10, value = 0),
