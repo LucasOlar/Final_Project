@@ -13,6 +13,32 @@ source(file = "functions_final_project.R", local = T)
 
 options(spinner.color = "#0dc5c1", spinner.size = 1.4, spinner.type = 6)
 
+
+# Show all the possible dubs of movies
+df <- data_find("https://raw.githubusercontent.com/rengalv/Movies-Data-Analysis-Grab-a-Popcorn/master/tmdb_5000_movies.csv")
+list_spoken_languages <- unlist(strsplit(df$spoken_languages,","))
+list_spoken_languages <- list_spoken_languages[!duplicated(list_spoken_languages)]
+list_spoken_languages <- append( "All", list_spoken_languages)
+
+# Show all the possible genres of movies
+list_genres <- unlist(strsplit(df$genres,","))
+list_genres <- list_genres[!duplicated(list_genres)]
+list_genres <- append( "All", list_genres)
+
+
+# We used this to have the lists of... to be able to manipulate them (not directly) :
+
+  # Show all the possible original languages
+  # list_languages <- movies_df[!duplicated(movies_df$original_language), ]
+  # list_languages = list_languages %>%
+  #   select(original_language)
+  # unique(list_languages$original_language)
+  
+  # Show all the possible countries of production
+  # list_country <- unlist(strsplit(movies_df$production_countries,","))
+  # list_country <- list_country[!duplicated(list_country)]
+  #  print(list_country)
+
 #-----------------------------------------------------------------------------------------------------------------------------------------------
 
 ui <- fluidPage(
@@ -46,11 +72,9 @@ ui <- fluidPage(
                  br(),
                  br(),
                  br(),
-                 selectInput("genre_1", "GENRES 1", c("All","Action","Adventure","Animation","Comedy","Crime","Documentary","Drama","Family","Fantasy","Foreign","History","Horror","Music","Mystery","Romance","Science Fiction","Thriller","TV Movie","War","Western"
-                 ), selected = NULL, multiple = FALSE, width = NULL),
+                 selectInput("genre_1", "GENRES 1", list_genres, selected = NULL, multiple = FALSE, width = NULL),
                  br(),
-                 selectInput("genre_2", "GENRES 2", c("All","Action","Adventure","Animation","Comedy","Crime","Documentary","Drama","Family","Fantasy","Foreign","History","Horror","Music","Mystery","Romance","Science Fiction","Thriller","TV Movie","War","Western"
-                 ), selected = NULL, multiple = FALSE, width = NULL),
+                 selectInput("genre_2", "GENRES 2", list_genres, selected = NULL, multiple = FALSE, width = NULL),
                  br(),
                  sliderInput("vote_average", "MINIMUM RATING", min = 0, max = 10, value = 0),
                  br(),
@@ -66,15 +90,7 @@ ui <- fluidPage(
                              selected = NULL, multiple = FALSE, width = NULL
                  ),
                  br(),
-                 selectInput("spoken_languages", "DUBBED LANGUAGE",
-                             c(
-                               "All", "English", "Español", "Français", "Italiano", "Deutsch", "Türkçe", "e<U+03BB><U+03BB><U+03B7><U+03BD><U+03B9><U+03BA><U+03AC>","<U+666E><U+901A><U+8BDD>", "<U+0E20><U+0E32><U+0E29><U+0E32><U+0E44><U+0E17><U+0E22>", "Íslenska", "P<U+0443><U+0441><U+0441><U+043A><U+0438><U+0439>", "svenska", "Româna", "<U+65E5><U+672C><U+8A9E>", "Latin",
-                               "<U+0939><U+093F><U+0928><U+094D><U+0926><U+0940>", "Português", "<U+0641><U+0627><U+0631><U+0633><U+06CC>", "<U+0627><U+0631><U+062F><U+0648>", "<U+0627><U+0644><U+0639><U+0631><U+0628><U+064A><U+0629>", "Ceský", "<U+5E7F><U+5DDE><U+8BDD> / <U+5EE3><U+5DDE><U+8A71>","<U+D55C><U+AD6D><U+C5B4>/<U+C870><U+C120><U+B9D0>", "Norsk", "<U+0BA4><U+0BAE><U+0BBF><U+0BB4><U+0BCD>",
-                               "<U+05E2><U+05B4><U+05D1><U+05B0><U+05E8><U+05B4><U+05D9><U+05EA>", "Dansk", "Nederlands", "Afrikaans", "Gaeilge","Somali", "suomi", "Kiswahili", "<U+0431><U+044A><U+043B><U+0433><U+0430><U+0440><U+0441><U+043A><U+0438> <U+0435><U+0437><U+0438><U+043A>", "Ti<U+1EBF>ng Vi<U+1EC7>t", "Magyar", "<U+0423><U+043A><U+0440><U+0430><U+0457><U+043D><U+0441><U+044C><U+043A><U+0438><U+0439>",
-                               "Esperanto", "Polski", "<U+0A2A><U+0A70><U+0A1C><U+0A3E><U+0A2C><U+0A40>", "Eesti", "shqip", "Srpski", "Bosanski", "Hrvatski", "Slovencina", "<U+049B><U+0430><U+0437><U+0430><U+049B>","<U+0C24><U+0C46><U+0C32><U+0C41><U+0C17><U+0C41>", "Cymraeg", "Wolof", "isiZulu", "<U+067E><U+069A><U+062A><U+0648>", "No Language", "Galego", 
-                               "<U+10E5><U+10D0><U+10E0><U+10D7><U+10E3><U+10DA><U+10D8>","<U+09AC><U+09BE><U+0982><U+09B2><U+09BE>", "Català", "Bahasa indonesia", "Bamanankan", "Slovenšcina"
-                             ),
-                             selected = NULL, multiple = FALSE, width = NULL
+                 selectInput("spoken_languages", "DUBBED LANGUAGE",list_spoken_languages, selected = NULL, multiple = FALSE, width = NULL
                  )
                ),
                mainPanel(withSpinner(tableOutput("recommend")))
@@ -124,9 +140,6 @@ ui <- fluidPage(
 
 # Define server logic required to draw a histogram
 server <- function(input, output, session) {
-  
-  # Find data
-  df <- data_find("https://raw.githubusercontent.com/rengalv/Movies-Data-Analysis-Grab-a-Popcorn/master/tmdb_5000_movies.csv")
   
   # Use data_filter function from functions_final_project.R to filter with criteria
   data_recommended <- eventReactive(input$compute, {

@@ -14,28 +14,6 @@ library(styler)
 #style_dir()
 
 # We want to create a function that filters based on : 2 genres, vote_average, popularity, 2 release_date, runtime, original language, spoken languages
-# colnames(movies_df)
-
-# Show all the possible original languages
-# list_languages <- movies_df[!duplicated(movies_df$original_language), ]
-# list_languages = list_languages %>%
-#   select(original_language)
-# unique(list_languages$original_language)
-
-# Show all the possible genres of movies
-# list_genres <- unlist(strsplit(movies_df$genres,","))
-# list_genres <- list_genres[!duplicated(list_genres)]
-# print(list_genres)
-
-# Show all the possible spoken languages
-# list_spoken_languages <- unlist(strsplit(movies_df$spoken_languages,","))
-# list_spoken_languages <- list_spoken_languages[!duplicated(list_spoken_languages)]
-# print(list_spoken_languages)
-
-# Show all the possible countries of production
-# list_country <- unlist(strsplit(movies_df$production_countries,","))
-# list_country <- list_country[!duplicated(list_country)]
-#  print(list_country)
 
 
 #------------------------------------------------------------------------------------------------------------------------------------------------
