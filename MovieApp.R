@@ -50,9 +50,7 @@ ui <- fluidPage(
                  sliderInput("runtime", "MAXIMUM LENGTH (MINUTES)", min = 0, max = 340, value = 340),
                  br(),
                  selectInput("original_language", "ORIGINAL LANGUAGE",
-                             c("All",
-                               "English" = "en", "Japanese" = "ja", "French" = "fr", "Chinese" = "zh", "Spanish" = "es", "German" = "de","Hindi" = "hi", "Russian" = "ru", "Korean" = "ko", "Telugu" = "te", "Catalan" = "cn", "Italian" = "it", "Dutch" = "nl","Tamil" = "ta", "Swedish" = "sv", "Thai" = "th", "Danish" = "da", "Hungarian" = "hu", "Czech" = "cs", "Portuguese" = "pt",
-                               "Icelandic" = "is", "Turkish" = "tr", "Norwegian Bokmål" = "nb", "Afrikaans" = "af", "Polish" = "pl", "Hebrew" = "he","Arabic" = "ar", "Vietnamese" = "vi", "Kyrgyz" = "ky", "Indonesian" = "id", "Romanian" = "ro", "Persian" = "fa","Norwegian" = "no", "Slovenian" = "sl", "Pashto" = "ps", "Greek" = "el"
+                             c("All", "Afrikaans" = "af","Arabic" = "ar","Catalan" = "cn","Chinese" = "zh","Czech" = "cs","Danish" = "da","Dutch" = "nl","English" = "en","French" = "fr","German" = "de","Greek" = "el","Hebrew" = "he","Hindi" = "hi","Hungarian" = "hu","Icelandic" = "is","Indonesian" = "id","Italian" = "it","Japanese" = "ja","Korean" = "ko","Kyrgyz" = "ky","Norwegian Bokmål" = "nb","Norwegian" = "no","Pashto" = "ps","Persian" = "fa","Polish" = "pl","Portuguese" = "pt","Romanian" = "ro","Russian" = "ru","Slovenian" = "sl","Spanish" = "es","Swedish" = "sv","Tamil" = "ta","Telugu" = "te","Thai" = "th","Turkish" = "tr","Vietnamese" = "vi"
                              ),
                              selected = NULL, multiple = FALSE, width = NULL
                  ),
