@@ -119,21 +119,6 @@ data_search <- function(df, title_input, key_input_1, key_input_2, key_input_3, 
     production_country_input <- ""
   }
   
-  #What happens if Continents 
-  if (production_country_input == "Africa") {
-    production_country_input <- c("Algeria", "Angola", "Cameroon", "Egypt", "Kenya", "Libyan Arab Jamahiriya", "Morocco", "Nigeria", "South Africa", "Tunisia")
-  }
-  if (production_country_input == "America") {
-    production_country_input <- c("Argentina", "Aruba", "Bahamas", "Bolivia", "Brazil", "Canada", "Chile", "Colombia", "Dominica", "Dominican Republic", "Ecuador", "Guadaloupe", "Guyana", "Jamaica", "Mexico", "Panama", "Peru", "United States of America")
-  }
-  if (production_country_input == "Asia-Oceania") {
-    production_country_input <- c("Afghanistan", "Australia", "Bhutan", "Cambodia", "China", "Fiji", "Hong Kong", "India", "Indonesia", "Iran", "Israel", "Japan", "Jordan", "Kazakhstan", "Kyrgyz Republic", "Lebanon", "Malaysia", "New Zealand", "Pakistan", "Philippines", "Singapore", "South Korea", "Taiwan", "Thailand", "Turkey", "United Arab Emirates")
-  }
-  if (production_country_input ==  "Europe") {
-    production_country_input <- c("Austria", "Belgium", "Bosnia and Herzegovina", "Bulgaria", "Cyprus", "Czech Republic", "Denmark", "Finland", "France", "Germany", "Greece", "Hungary", "Iceland", "Ireland", "Italy", "Lithuania", "Luxembourg", "Malta", "Monaco", "Netherlands", "Norway", "Poland", "Portugal", "Romania", "Russia", "Serbia", "Serbia and Montenegro", "Slovakia", "Slovenia", "Spain", "Sweden", "Switzerland", "Ukraine", "United Kingdom")
-  }
-  
-  
   movies_search <- df %>%
     filter(grepl(pattern = title_input, x = title)) %>%
     filter(grepl(pattern = key_input_1, x = keywords)) %>%
@@ -146,3 +131,32 @@ data_search <- function(df, title_input, key_input_1, key_input_2, key_input_3, 
   
   return(movies_search)
 }
+
+#-----------------------------------------------------------------------------------------------------------------------------------------------
+
+
+tale_maker = function(df){
+  sp500 %>%
+    filter(date >= start_date & date <= end_date) %>%
+    select(-adj_close) %>%
+    gt() %>%
+    tab_header(
+      title = "S&P 500",
+      subtitle = glue("{start_date} to {end_date}")
+    ) %>%
+    fmt_date(
+      columns = date,
+      date_style = 3
+    ) %>%
+    fmt_currency(
+      columns = c(open, high, low, close),
+      currency = "USD"
+    ) %>%
+    fmt_number(
+      columns = volume,
+      suffixing = TRUE
+    )
+}
+
+
+

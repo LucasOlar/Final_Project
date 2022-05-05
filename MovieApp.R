@@ -100,7 +100,7 @@ ui <- fluidPage(
                sidebarPanel(
                  h3("MOVIE SEARCH", align = "center", style = "color:cyan"),
                  br(),
-                 actionBttn("compute_2", "SHOW ME THE MOVIES", icon = icon("film"), color = "success", style = "fill"), align = "center",
+                 actionBttn("compute_2", "SHOW ME THE MOVIES", icon = icon("film"), color = "success", style = "fill",), align = "center",
                  br(),
                  br(),
                  br(),
