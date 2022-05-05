@@ -5,6 +5,8 @@ library(shinyjs)
 library(stringr)
 library(shinycssloaders)
 library(shinyalert)
+library(bslib)
+
 
 
 source(file = "functions_final_project.R", local = T)
@@ -16,6 +18,14 @@ options(spinner.color = "#0dc5c1", spinner.size = 1.4, spinner.type = 6)
 ui <- fluidPage(
   shinythemes::themeSelector(),
   theme = bslib::bs_theme(bootswatch = "superhero"),
+
+  
+    checkboxInput(
+      inputId = "themeToggle",
+      label = icon("sun")),
+
+  
+
   
   # Application title
   titlePanel(tags$img(src = "MyImage.jpg", height = 200, width = 200)),
@@ -83,31 +93,31 @@ ui <- fluidPage(
                  br(),
                  br(),
                  h4("OFFICIAL TITLE"),
-                 textInput(inputId = "title", label = "", value = "Stuart Little"),
+                 textInput(inputId = "title", label = "", value = ""),
                  br(),
-                 textInput(inputId = "key_words_1", label = "KEY WORDS 1", value = "Based on novel"),
+                 textInput(inputId = "key_words_1", label = "KEY WORDS 1", value = ""),
                  br(),
-                 textInput(inputId = "key_words_2", label = "KEY WORD 2", value = "Brother brother relationship"),
+                 textInput(inputId = "key_words_2", label = "KEY WORD 2", value = ""),
                  br(),
-                 textInput(inputId = "key_words_3", label = "KEY WORD 3", value = "Mouse"),
+                 textInput(inputId = "key_words_3", label = "KEY WORD 3", value = ""),
                  br(),
                  sliderInput("popularity", "MINIMUM POPULARITY", min = 0, max = 150, value = 0),
                  br(),
                  selectInput("country", "PRODUCTION COUNTRY", list(
                    "All",
-                   "Africa" = c("Algeria", "Angola", "Cameroon", "Egypt", "Kenya", "Libyan Arab Jamahiriya", "Morocco", "Nigeria", "South Africa", "Tunisia"), sort("Africa", decreasing = FALSE),
-                   "America" = c("Argentina", "Aruba", "Bahamas", "Bolivia", "Brazil", "Canada", "Chile", "Colombia", "Dominica", "Dominican Republic", "Ecuador", "Guadaloupe", "Guyana", "Jamaica", "Mexico", "Panama", "Peru", "United States of America"), sort("America", decreasing = FALSE),
-                   "Asia-Oceania" = c("Afghanistan", "Australia", "Bhutan", "Cambodia", "China", "Fiji", "Hong Kong", "India", "Indonesia", "Iran", "Israel", "Japan", "Jordan", "Kazakhstan", "Kyrgyz Republic", "Lebanon", "Malaysia", "New Zealand", "Pakistan", "Philippines", "Singapore", "South Korea", "Taiwan", "Thailand", "Turkey", "United Arab Emirates"), sort("Asia-Oceania", decreasing = FALSE),
-                   "Europe" = c("Austria", "Belgium", "Bosnia and Herzegovina", "Bulgaria", "Cyprus", "Czech Republic", "Denmark", "Finland", "France", "Germany", "Greece", "Hungary", "Iceland", "Ireland", "Italy", "Lithuania", "Luxembourg", "Malta", "Monaco", "Netherlands", "Norway", "Poland", "Portugal", "Romania", "Russia", "Serbia", "Serbia and Montenegro", "Slovakia", "Slovenia", "Spain", "Sweden", "Switzerland", "Ukraine", "United Kingdom"), sort("Europe", decreasing = FALSE)
+                   "Africa" = c("Algeria", "Angola", "Cameroon", "Egypt", "Kenya", "Libyan Arab Jamahiriya", "Morocco", "Nigeria", "South Africa", "Tunisia"), 
+                   "America" = c("Argentina", "Aruba", "Bahamas", "Bolivia", "Brazil", "Canada", "Chile", "Colombia", "Dominica", "Dominican Republic", "Ecuador", "Guadaloupe", "Guyana", "Jamaica", "Mexico", "Panama", "Peru", "United States of America"),
+                   "Asia-Oceania" = c("Afghanistan", "Australia", "Bhutan", "Cambodia", "China", "Fiji", "Hong Kong", "India", "Indonesia", "Iran", "Israel", "Japan", "Jordan", "Kazakhstan", "Kyrgyz Republic", "Lebanon", "Malaysia", "New Zealand", "Pakistan", "Philippines", "Singapore", "South Korea", "Taiwan", "Thailand", "Turkey", "United Arab Emirates"),
+                   "Europe" = c("Austria", "Belgium", "Bosnia and Herzegovina", "Bulgaria", "Cyprus", "Czech Republic", "Denmark", "Finland", "France", "Germany", "Greece", "Hungary", "Iceland", "Ireland", "Italy", "Lithuania", "Luxembourg", "Malta", "Monaco", "Netherlands", "Norway", "Poland", "Portugal", "Romania", "Russia", "Serbia", "Serbia and Montenegro", "Slovakia", "Slovenia", "Spain", "Sweden", "Switzerland", "Ukraine", "United Kingdom")
                  ), selected = NULL, multiple = FALSE, width = NULL)
                ),
                mainPanel(withSpinner(tableOutput("search")))
              )
     ),
-    tabPanel("PeliPopCorn", icon = icon("fire"))
+    tabPanel("PeliPopCorn", icon = icon("fire")),
+    tabPanel("PeliBoring", icon = icon("info"))
   )
 )
-
 
 #---------------------------------------------------------------------------------------------------------------------------------------
 
