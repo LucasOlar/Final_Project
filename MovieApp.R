@@ -14,7 +14,8 @@ options(spinner.color = "#0dc5c1", spinner.size = 1.4, spinner.type = 6)
 #-----------------------------------------------------------------------------------------------------------------------------------------------
 
 ui <- fluidPage(
-  theme = bslib::bs_theme(bootswatch = "darkly"),
+  shinythemes::themeSelector(),
+  theme = bslib::bs_theme(bootswatch = "superhero"),
   
   # Application title
   titlePanel(tags$img(src = "MyImage.jpg", height = 200, width = 200)),
