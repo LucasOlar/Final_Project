@@ -78,8 +78,11 @@ data_recommend <- function(df, genre_1, genre_2, vote_average_input, date_before
   }
 
   # Here we say if user chooses all genres, then we will pick all the possible genres
-  if (genre_1 == "All" | genre_2 == "All") {
+  if (genre_1 == "All") {
     genre_1 <- ""
+  }
+  
+  if (genre_2 == "All") {
     genre_2 <- ""
   }
 
