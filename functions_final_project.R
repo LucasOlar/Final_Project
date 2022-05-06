@@ -10,7 +10,6 @@ library(ggplot2)
 library(ggpubr)
 library(tibble)
 library(styler)
-library(gt)
 
 # style_dir()
 
@@ -93,7 +92,8 @@ data_recommend <- function(df, genre_1, genre_2, vote_average_input, date_before
     filter(release_date >= date_after) %>%
     filter(runtime <= runtime_input) %>%
     filter(grepl(pattern = original_language_input, x = original_language)) %>%
-    filter(grepl(pattern = spoken_languages_input, x = spoken_languages))
+    filter(grepl(pattern = spoken_languages_input, x = spoken_languages)) %>%
+    select(title, overview)
 
   return(movies_recommendation)
 }
@@ -127,7 +127,8 @@ data_search <- function(df, title_input, key_input_1, key_input_2, key_input_3, 
     filter(grepl(pattern = key_input_3, x = keywords)) %>%
     filter(popularity >= popularity_input) %>%
     filter(grepl(pattern = production_country_input, x = production_countries)) %>%
-    select(c(title, overview))
+    select(title, overview) %>%
+    rename(TITLE = title, SUMMARY = overview )
 
   return(movies_search)
 }
@@ -139,6 +140,9 @@ daily_find = function(date, df){
   set.seed(date)
   random_number <- round(runif(1, min = 1, max = nrow(df)), 0)
   random_movie <- df[random_number, ]
+  
+  random_movie %>%
+    select(title, overview)
 }
 
 
