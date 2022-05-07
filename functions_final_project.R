@@ -10,6 +10,7 @@ library(ggplot2)
 library(ggpubr)
 library(tibble)
 library(styler)
+library(naniar)
 
 # style_dir()
 
@@ -56,8 +57,9 @@ data_find <- function(url) {
     full_join(genres_df, by = c("id", "title")) %>%
     full_join(keywords_df, by = c("id", "title")) %>%
     full_join(prod_cntry_df, by = c("id", "title")) %>%
-    full_join(spoken_lang_df, by = c("id", "title"))
-
+    full_join(prod_cmpny_df, by = c("id", "title")) %>%
+    full_join(spoken_lang_df, by = c("id", "title")) 
+  
   return(movies_df)
 }
 
@@ -96,7 +98,7 @@ data_recommend <- function(df, genre_1, genre_2, vote_average_input, date_before
     filter(runtime <= runtime_input) %>%
     filter(grepl(pattern = original_language_input, x = original_language)) %>%
     filter(grepl(pattern = spoken_languages_input, x = spoken_languages)) %>%
-    select(title, overview)
+    select(title, overview, homepage, release_date, tagline, vote_average, genres, spoken_languages)
 
   return(movies_recommendation)
 }
@@ -145,7 +147,7 @@ daily_find = function(date, df){
   random_movie <- df[random_number, ]
   
   random_movie %>%
-    select(title, overview)
+    select(title, overview, homepage, release_date, tagline, vote_average, genres, spoken_languages)
 }
 
 

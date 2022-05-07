@@ -57,9 +57,33 @@ ui <- fluidPage(
     id = "tabset",
     tabPanel("PeliDaily", icon = icon("calendar"), 
              mainPanel(
+               br(),
                textOutput("daily_text"),
                tags$head(tags$style("#daily_text{color: cyan;font-size: 17px;font-style: bold; text-align: center;}")),
-               withSpinner(tableOutput("daily")))
+               br(),
+               textOutput("text_1"),
+               tags$head(tags$style("#text_1{color: orange;font-size: 37px;font-style: bold; text-align: center;}")),
+               br(),
+               textOutput("text_2"),
+               tags$head(tags$style("#text_2{color: orange;font-size: 25px;font-style: bold; text-align: center;}")),
+               br(),
+               br(),
+               textOutput("text_3"),
+               tags$head(tags$style("#text_3{font-size: 20px; text-align: left;}")),
+               br(),
+               textOutput("text_4"),
+               tags$head(tags$style("#text_4{color: cyan;font-size: 17px;font-style: bold; text-align: center;}")),
+               br(),
+               textOutput("text_5"),
+               tags$head(tags$style("#text_5{color: cyan;font-size: 17px;font-style: bold; text-align: center;}")),
+               br(),
+               textOutput("text_6"),
+               tags$head(tags$style("#text_6{color: cyan;font-size: 17px;font-style: bold; text-align: center;}")),
+               br(),
+               textOutput("text_7"),
+               tags$head(tags$style("#text_6{color: cyan;font-size: 17px;font-style: bold; text-align: center;}")),
+               br()
+               )
              ),
     tabPanel("PeliRecommend",
       icon = icon("random"),
@@ -96,7 +120,29 @@ ui <- fluidPage(
         mainPanel(
           textOutput("recommend_text"),
           tags$head(tags$style("#recommend_text{color: cyan;font-size: 17px;font-style: bold; text-align: center;}")),
-          withSpinner(tableOutput("recommend")))
+          br(),
+          textOutput("text_8"),
+          tags$head(tags$style("#text_8{color: orange;font-size: 37px;font-style: bold; text-align: center;}")),
+          br(),
+          textOutput("text_9"),
+          tags$head(tags$style("#text_9{color: orange;font-size: 25px;font-style: bold; text-align: center;}")),
+          br(),
+          br(),
+          textOutput("text_10"),
+          tags$head(tags$style("#text_10{font-size: 20px; text-align: left;}")),
+          br(),
+          textOutput("text_11"),
+          tags$head(tags$style("#text_11{color: cyan;font-size: 17px;font-style: bold; text-align: center;}")),
+          br(),
+          textOutput("text_12"),
+          tags$head(tags$style("#text_12{color: cyan;font-size: 17px;font-style: bold; text-align: center;}")),
+          br(),
+          textOutput("text_13"),
+          tags$head(tags$style("#text_13{color: cyan;font-size: 17px;font-style: bold; text-align: center;}")),
+          br(),
+          textOutput("text_14"),
+          tags$head(tags$style("#text_14{color: cyan;font-size: 17px;font-style: bold; text-align: center;}"))
+          )
       )
     ),
     tabPanel("PeliSearch",
@@ -176,19 +222,55 @@ ui <- fluidPage(
 server <- function(input, output, session) {
 
   # Tab 1 --> Daily 
-  output$daily <- renderTable({date <- as.POSIXct(Sys.Date(), format = "%y/%m/%d")
-  numeric_date <- as.numeric(date)
-  daily_movie <- daily_find(
-    date = numeric_date,
-    df = df
-  )
-  return(daily_movie)
-  })
+  
+  # Choose movie based on date
+    date <- as.POSIXct(Sys.Date(), format = "%y/%m/%d")
+    numeric_date <- as.numeric(date)
+    
+    daily_movie <- daily_find(
+      date = numeric_date,
+      df = df
+    )
   
   #Title of daily table
   output$daily_text <- renderText({
     paste0("RECOMMENDATION OF THE ", format(Sys.Date(), "%d-%m-%Y"))
   })
+  
+  
+  #Text 
+  output$text_1 <- renderText({
+    daily_movie$title
+  })
+  
+  output$text_2 <- renderText({
+    daily_movie$tagline
+  })
+  
+  output$text_3 <- renderText({
+    daily_movie$overview
+  })
+  
+  output$text_4 <- renderText({
+    paste0("Rating : ", daily_movie$vote_average, "/10")
+  })
+
+  output$text_5 <- renderText({
+    paste0("Released on the ", format(daily_movie$release_date, "%d-%m-%Y"))
+  })
+    
+  output$text_6 <- renderText({
+    paste0("Dubbed Languages : ", daily_movie$spoken_languages)
+  })
+  
+  output$text_7 <- renderText({
+    if(daily_movie$homepage != ""){
+      paste0("Website link : ",daily_movie$homepage)
+    } else {
+      ""
+    }
+  })
+  
   
   
   
@@ -219,8 +301,10 @@ server <- function(input, output, session) {
   })
 
   # Prints out table (temporary)
-  output$recommend <- renderTable({
-    choose_movie(data_recommended())
+  
+  data_movie_recommendation <- eventReactive(input$compute, {
+    df_recommend_movie <- choose_movie(data_recommended())
+    return(df_recommend_movie)
   })
   
   #Clear button creation
@@ -239,6 +323,38 @@ server <- function(input, output, session) {
     paste0("SELECTED FROM ", nrow(data_recommended()), " POSSIBILITIES")
   })
 
+  #Text 
+  output$text_8 <- renderText({
+    data_movie_recommendation()$title
+  })
+  
+  output$text_9 <- renderText({
+    data_movie_recommendation()$tagline
+  })
+  
+  output$text_10 <- renderText({
+    data_movie_recommendation()$overview
+  })
+  
+  output$text_11 <- renderText({
+    paste0("Rating : ", data_movie_recommendation()$vote_average, "/10")
+  })
+  
+  output$text_12 <- renderText({
+    paste0("Released on the ", format(data_movie_recommendation()$release_date, "%d-%m-%Y"))
+  })
+  
+  output$text_13 <- renderText({
+    paste0("Dubbed Languages : ", data_movie_recommendation()$spoken_languages)
+  })
+  
+  output$text_14 <- renderText({
+    if(data_movie_recommendation()$homepage != ""){
+      paste0("Website link : ",data_movie_recommendation()$homepage)
+    } else {
+      ""
+    }
+  })
 
   
   
