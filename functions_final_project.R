@@ -18,10 +18,10 @@ library(styler)
 
 #------------------------------------------------------------------------------------------------------------------------------------------------
 
-
+#Function that finds our data and converts Json to normal readable string
 data_find <- function(url) {
 
-  # URL in case needed for testing outside of function
+  # URL for testing outside of function
   url <- "https://raw.githubusercontent.com/rengalv/Movies-Data-Analysis-Grab-a-Popcorn/master/tmdb_5000_movies.csv"
 
   # Reading the csv file from the URL
@@ -63,7 +63,7 @@ data_find <- function(url) {
 
 #------------------------------------------------------------------------------------------------------------------------------------------------
 
-
+#We are making the functino that recommends a movie based on our criteria
 data_recommend <- function(df, genre_1, genre_2, vote_average_input, date_before,
                            date_after, runtime_input, original_language_input, spoken_languages_input) {
 
@@ -115,7 +115,7 @@ choose_movie <- function(df) {
 
 #------------------------------------------------------------------------------------------------------------------------------------------------
 
-
+# We are making a function that gives us the desired researched data
 data_search <- function(df, title_input, key_input_1, key_input_2, key_input_3, production_country_input, popularity_input) {
 
   # Here we say if user chooses all genres, then we will pick all the possible genres
@@ -138,7 +138,7 @@ data_search <- function(df, title_input, key_input_1, key_input_2, key_input_3, 
 
 #-----------------------------------------------------------------------------------------------------------------------------------------------
 
-
+#Finding a daily movie by choosing randomly based on seed fixed on date
 daily_find = function(date, df){
   set.seed(date)
   random_number <- round(runif(1, min = 1, max = nrow(df)), 0)
@@ -150,5 +150,6 @@ daily_find = function(date, df){
 
 
 #------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 
