@@ -47,7 +47,7 @@ list_genres <- append("All", list_genres)
 ui <- fluidPage(
   
   # Changing themes of page
-  shinythemes::themeSelector(),
+  # shinythemes::themeSelector(),
   theme = bslib::bs_theme(bootswatch = "superhero"),
   checkboxInput(
     inputId = "themeToggle",
@@ -55,7 +55,7 @@ ui <- fluidPage(
   ),
   
   # Application title
-  titlePanel(tags$img(src = "MyImage.jpg", height = 200, width = 200)),
+  titlePanel(tags$img(src = "MyImage2.png", height = 100, width = 400)),
 
   # Making page close
   useShinyjs(),
@@ -201,13 +201,13 @@ ui <- fluidPage(
              mainPanel(
                style = "font-family: 'Comic Sans MS';",
                h2("POP CORN RECIPE !!!!", align = "center", style = "color:cyan"),
-               h4("Ingredients : ", style = "color:pink"),
+               h4("Ingredients : ", style = "color:purple"),
                p(""),
-               p("- 2 tbsp vegetable oil", style = "color:purple"),
-               p("- 100g popcorn kernels", style = "color:purple"),
-               p("- 250g caster sugar", style = "color:purple"),
-               p("- 50g salted butter , cubed", style = "color:purple"),
-               h3("Method", align = "center", style = "color:green"),
+               p("- 2 tbsp vegetable oil", style = "color:lime"),
+               p("- 100g popcorn kernels", style = "color:lime"),
+               p("- 250g caster sugar", style = "color:lime"),
+               p("- 50g salted butter , cubed", style = "color:lime"),
+               h3("Method", align = "center", style = "color:pink"),
                h4("STEP 1", style = "color:yellow"),
                p("Put the oil in a large saucepan with a tight-fitting lid over a medium heat. Toss the popcorn kernels in the oil to coat. Put the lid on, and keep over a medium heat until you hear the first popcorn pop, then turn the heat to medium-low. When you begin to hear lots of popping, give the pan a shake. Continue to shake frequently until the popping stops. Turn off the heat and leave in the pan.", style = "color:orange"),
                p(""),
@@ -241,7 +241,7 @@ ui <- fluidPage(
                br(),
                h3("Did that spectacular graph bore you ?", style = "color:lime"),
                br(),
-               actionBttn("close", "If so click here", color = "success", style = "fill"),
+               actionBttn("close", "If so, click here !! (goodbye)", color = "success", style = "fill"),
                br(),
                br(),
                br()
