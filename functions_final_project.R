@@ -153,29 +153,35 @@ data_search <- function(df, title_input, key_input_1, key_input_2, key_input_3, 
 
 # We make a function that will create a desired plot -> For the PeliData Tab
 plot_movie = function(df){
-  plot <- plot_ly(data = df, x = ~release_date, y = ~budget, z = ~revenue, 
-                  marker = list(color = ~vote_average, colorscale = c('#FFE1A1', '#683531'), 
-                                showscale = TRUE, size = 6, 
-                                line = list(color = 'rgb(0,0,0)',
-                                            width = 1)))
+  plot <- plot_ly(data = df, x = ~release_date, y = ~budget, z = ~revenue,
+                  marker = list(
+                    color = ~vote_average, colorscale = c('#FFE1A1', '#683531'), 
+                    showscale = TRUE, size = 6, line = list(color = 'rgb(0,0,0)',
+                    width = 1)))
   plot <- plot %>% add_markers()
-  plot <- plot %>% layout(scene = list(xaxis = list(title = list(text = 'Release Date', font = list(color = "cyan")), autorange="reversed", gridcolor = 'rgb(0, 255, 255)'),
-                                       yaxis = list(title = list(text = 'Budget', font = list(color = "cyan")), autorange="reversed", gridcolor = 'rgb(0, 255, 255)'),
-                                       zaxis = list(title = list(text = 'Revenue', font = list(color = "cyan")), gridcolor = 'rgb(0, 255, 255)')),
-                          font = list(color = "cyan"),
-                          legend = list(color = "cyan"),
-                          annotations = list(
-                            x = 1.1,
-                            y = 1.03,
-                            text = 'Rating',
-                            color = "cyan",
-                            xref = 'paper',
-                            yref = 'paper',
-                            showarrow = FALSE
-                          ),
-                          paper_bgcolor = "rgba(43,62,80,255)")
+  plot <- plot %>% layout(
+    scene = list(
+      xaxis = list(title = list(text = 'Release Date', font = list(color = "cyan")), autorange="reversed", gridcolor = 'rgb(0, 255, 255)'),
+      yaxis = list(title = list(text = 'Budget', font = list(color = "cyan")), autorange="reversed", gridcolor = 'rgb(0, 255, 255)'),
+      zaxis = list(title = list(text = 'Revenue', font = list(color = "cyan")), gridcolor = 'rgb(0, 255, 255)')),
+          font = list(color = "cyan"),
+          legend = list(color = "cyan"),
+          annotations = list(
+                      x = 1.1,
+                      y = 1.03,
+                      text = 'Rating',
+                      color = "cyan",
+                      xref = 'paper',
+                        yref = 'paper',
+                      showarrow = FALSE
+                      ),
+            paper_bgcolor = "rgba(43,62,80,255)") %>%
+    add_trace(
+      text = df$title,
+      hoverinfo = "text",
+      showlegend = F)
+
   return(plot)
-  
 }
 
 #------------------------------------------------------------------------------------------------------------------------------------------------

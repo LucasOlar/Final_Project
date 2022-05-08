@@ -7,10 +7,13 @@ library(shinycssloaders)
 library(shinyalert)
 library(bslib)
 
-
+#To reference the other functions file 
 source(file = "functions_final_project.R", local = T)
 
+#To create spinner for charging graph and table
 options(spinner.color = "#0dc5c1", spinner.size = 1.4, spinner.type = 6)
+
+jscode <- "shinyjs.closeWindow = function() {window.close();}"
 
 
 # Show all the possible dubs of movies
@@ -42,16 +45,22 @@ list_genres <- append("All", list_genres)
 #-----------------------------------------------------------------------------------------------------------------------------------------------
 
 ui <- fluidPage(
+  
+  # Changing themes of page
   shinythemes::themeSelector(),
   theme = bslib::bs_theme(bootswatch = "superhero"),
   checkboxInput(
     inputId = "themeToggle",
     label = icon("sun")
   ),
-
+  
   # Application title
   titlePanel(tags$img(src = "MyImage.jpg", height = 200, width = 200)),
 
+  # Making page close
+  useShinyjs(),
+  extendShinyjs(text = jscode, functions = c("closeWindow")),
+  
   # Tabset pannel to choose from each tab
   tabsetPanel(
     id = "tabset",
@@ -203,11 +212,11 @@ ui <- fluidPage(
                p("Put the oil in a large saucepan with a tight-fitting lid over a medium heat. Toss the popcorn kernels in the oil to coat. Put the lid on, and keep over a medium heat until you hear the first popcorn pop, then turn the heat to medium-low. When you begin to hear lots of popping, give the pan a shake. Continue to shake frequently until the popping stops. Turn off the heat and leave in the pan.", style = "color:orange"),
                p(""),
                p(""),
-               h4("STEP 2", style = "color:pink"),
+               h4("STEP 2", style = "color:yellow"),
                p("Line a large baking tray with baking parchment. Put the sugar and 60ml water into a medium heavy-based saucepan and bring to the boil. Stir until the sugar has dissolved, then leave over a medium heat, without stirring, for 6-8 mins. It should start to turn into a golden caramel, swirl it around and add the butter - stand back as it may spit a little. Stir well until combined.", style = "color:orange"),
                p(""),
                p(""),
-               h4("STEP 3", style = "color:pink"),
+               h4("STEP 3", style = "color:yellow"),
                p("Pour the caramel over the popcorn in the pan and stir immediately to coat the popcorn, being careful not to touch the hot caramel. Carefully transfer onto the lined baking tray and press down with the back of a spoon to spread evenly. Leave to cool for 5 mins, then break apart and eat. ", style = "color:orange"),
                h2("ENJOY !!!!", align = "center", style = "color:red"),
                p(""),
@@ -221,7 +230,21 @@ ui <- fluidPage(
                br(),
                h3("Interactive plot of : BUDGET vs REVENUE", style = "color:cyan"),
                br(),
-               withSpinner(plotlyOutput("plot_data"))
+               withSpinner(plotlyOutput("plot_data")),
+               br(),
+               br(),
+               br(),
+               br(),
+               br(), #Without these the text goes behind the graph
+               br(),
+               br(),
+               br(),
+               h3("Did that spectacular graph bore you ?", style = "color:lime"),
+               br(),
+               actionBttn("close", "If so click here", color = "success", style = "fill"),
+               br(),
+               br(),
+               br()
              ))
   )
 )
@@ -427,14 +450,20 @@ server <- function(input, output, session) {
   
   
 
+  
   # Tab 5 --> Data
   
-  
-  
+  # Render plotly plot 
   output$plot_data <- renderPlotly({
     plot <- ggplotly(plot_movie(df = df)) %>% layout(height = 600, width = 700)
   })
   
+  
+  # close app
+  observeEvent(input$close,{
+    js$closeWindow()
+    stopApp()
+  })
   
 }
 
