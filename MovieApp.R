@@ -81,7 +81,7 @@ ui <- fluidPage(
                tags$head(tags$style("#text_6{color: cyan;font-size: 17px;font-style: bold; text-align: center;}")),
                br(),
                textOutput("text_7"),
-               tags$head(tags$style("#text_6{color: cyan;font-size: 17px;font-style: bold; text-align: center;}")),
+               tags$head(tags$style("#text_7{color: cyan;font-size: 17px;font-style: bold; text-align: center;}")),
                br()
                )
              ),
@@ -118,6 +118,7 @@ ui <- fluidPage(
           actionBttn("clear_1", "CLEAR", icon = icon("ban"), color = "danger", style = "fill")
         ),
         mainPanel(
+          br(),
           textOutput("recommend_text"),
           tags$head(tags$style("#recommend_text{color: cyan;font-size: 17px;font-style: bold; text-align: center;}")),
           br(),
@@ -179,7 +180,9 @@ ui <- fluidPage(
           actionBttn("clear_2", "CLEAR", icon = icon("ban"), color = "danger", style = "fill")
         ),
         mainPanel(
+          br(),
           textOutput("search_text"),
+          br(),
           tags$head(tags$style("#search_text{color: cyan;font-size: 17px;font-style: bold; text-align: center;}")),
           withSpinner(tableOutput("search"))
           )
@@ -188,31 +191,38 @@ ui <- fluidPage(
     tabPanel("PeliPopCorn", icon = icon("fire"),
              mainPanel(
                style = "font-family: 'Comic Sans MS';",
-               h2("POP CORN RECIPE !!!!", align = "center"),
-               h4("Ingredients : "),
+               h2("POP CORN RECIPE !!!!", align = "center", style = "color:cyan"),
+               h4("Ingredients : ", style = "color:pink"),
                p(""),
-               p("- 2 tbsp vegetable oil"),
-               p("- 100g popcorn kernels"),
-               p("- 250g caster sugar"),
-               p("- 50g salted butter , cubed"),
-               h3("Method", align = "center"),
-               h4("STEP 1"),
-               p("Put the oil in a large saucepan with a tight-fitting lid over a medium heat. Toss the popcorn kernels in the oil to coat. Put the lid on, and keep over a medium heat until you hear the first popcorn pop, then turn the heat to medium-low. When you begin to hear lots of popping, give the pan a shake. Continue to shake frequently until the popping stops. Turn off the heat and leave in the pan."),
-               p(""),
-               p(""),
-               h4("STEP 2"),
-               p("Line a large baking tray with baking parchment. Put the sugar and 60ml water into a medium heavy-based saucepan and bring to the boil. Stir until the sugar has dissolved, then leave over a medium heat, without stirring, for 6-8 mins. It should start to turn into a golden caramel, swirl it around and add the butter - stand back as it may spit a little. Stir well until combined."),
+               p("- 2 tbsp vegetable oil", style = "color:purple"),
+               p("- 100g popcorn kernels", style = "color:purple"),
+               p("- 250g caster sugar", style = "color:purple"),
+               p("- 50g salted butter , cubed", style = "color:purple"),
+               h3("Method", align = "center", style = "color:green"),
+               h4("STEP 1", style = "color:yellow"),
+               p("Put the oil in a large saucepan with a tight-fitting lid over a medium heat. Toss the popcorn kernels in the oil to coat. Put the lid on, and keep over a medium heat until you hear the first popcorn pop, then turn the heat to medium-low. When you begin to hear lots of popping, give the pan a shake. Continue to shake frequently until the popping stops. Turn off the heat and leave in the pan.", style = "color:orange"),
                p(""),
                p(""),
-               h4("STEP 3"),
-               p("Pour the caramel over the popcorn in the pan and stir immediately to coat the popcorn, being careful not to touch the hot caramel. Carefully transfer onto the lined baking tray and press down with the back of a spoon to spread evenly. Leave to cool for 5 mins, then break apart and eat. "),
-               h2("ENJOY !!!!", align = "center"),
+               h4("STEP 2", style = "color:pink"),
+               p("Line a large baking tray with baking parchment. Put the sugar and 60ml water into a medium heavy-based saucepan and bring to the boil. Stir until the sugar has dissolved, then leave over a medium heat, without stirring, for 6-8 mins. It should start to turn into a golden caramel, swirl it around and add the butter - stand back as it may spit a little. Stir well until combined.", style = "color:orange"),
+               p(""),
+               p(""),
+               h4("STEP 3", style = "color:pink"),
+               p("Pour the caramel over the popcorn in the pan and stir immediately to coat the popcorn, being careful not to touch the hot caramel. Carefully transfer onto the lined baking tray and press down with the back of a spoon to spread evenly. Leave to cool for 5 mins, then break apart and eat. ", style = "color:orange"),
+               h2("ENJOY !!!!", align = "center", style = "color:red"),
                p(""),
                div(img(src="https://cdn.dribbble.com/users/953617/screenshots/10404379/media/1402a0bc576dc70b2ba1785ef44194c2.png", height = 500, width = 700), align = "center"),
                p(""),
                p("")
              )),
-    tabPanel("PeliData", icon = icon("info"))
+    tabPanel("PeliData", icon = icon("info"),
+             mainPanel(
+               align = "center",
+               br(),
+               h3("Interactive plot of : BUDGET vs REVENUE", style = "color:cyan"),
+               br(),
+               withSpinner(plotlyOutput("plot_data"))
+             ))
   )
 )
 
@@ -260,7 +270,7 @@ server <- function(input, output, session) {
   })
     
   output$text_6 <- renderText({
-    paste0("Dubbed Languages : ", daily_movie$spoken_languages)
+    paste0("Movie genres : ", daily_movie$genres)
   })
   
   output$text_7 <- renderText({
@@ -345,7 +355,7 @@ server <- function(input, output, session) {
   })
   
   output$text_13 <- renderText({
-    paste0("Dubbed Languages : ", data_movie_recommendation()$spoken_languages)
+    paste0("Movie genres : ", data_movie_recommendation()$genres)
   })
   
   output$text_14 <- renderText({
@@ -356,6 +366,8 @@ server <- function(input, output, session) {
     }
   })
 
+  
+  
   
   
   # Tab 3 --> Search
@@ -390,7 +402,7 @@ server <- function(input, output, session) {
   
   #Title of search table
   output$search_text <- renderText({
-    paste0("WE FOUND ", nrow(data_searched()), " MOVIES")
+    paste0("MOVIES ", nrow(data_searched()), " FOUND")
   })
   
   #Clear button creation
@@ -406,10 +418,22 @@ server <- function(input, output, session) {
   
   
   
+  
+  
  # Tab 4 --> Popcorn
+    # No code/data needed for tab 4
+  
+  
+  
   
 
-
+  # Tab 5 --> Data
+  
+  
+  
+  output$plot_data <- renderPlotly({
+    plot <- ggplotly(plot_movie(df = df)) %>% layout(height = 600, width = 700)
+  })
   
   
 }
