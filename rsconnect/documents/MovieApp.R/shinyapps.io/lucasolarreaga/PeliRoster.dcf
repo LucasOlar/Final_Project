@@ -5,10 +5,10 @@ account: lucasolarreaga
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 6258081
-bundleId: 5883540
+bundleId: 5883859
 url: https://lucasolarreaga.shinyapps.io/PeliRoster/
-when: 1652019525.70207
-lastSyncTime: 1652019525.70207
+when: 1652029860.47882
+lastSyncTime: 1652029860.47882
 asMultiple: FALSE
 asStatic: FALSE
 ignoredFiles: .RDataTmp|WWW/.DS_Store

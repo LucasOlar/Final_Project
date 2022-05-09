@@ -254,6 +254,15 @@ ui <- fluidPage(
 # Define server logic required to draw a histogram
 server <- function(input, output, session) {
 
+  # Notification Explanation app
+  
+  shinyalert(
+    title = "Welcome To PeliRoster",
+    text = "This app was made to help you chose a movie to watch ! \n \n So good luck, have fun"
+  )
+  
+  
+  
   # Tab 1 --> Daily 
   
   # Choose movie based on date
