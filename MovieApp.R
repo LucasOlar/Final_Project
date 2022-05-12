@@ -6,7 +6,7 @@ library(stringr)
 library(shinycssloaders)
 library(shinyalert)
 library(bslib)
-
+library(shinyDarkmode)
 #To reference the other functions file 
 source(file = "functions_final_project.R", local = T)
 
@@ -57,6 +57,7 @@ ui <- fluidPage(
   # Application title
   titlePanel(tags$img(src = "MyImage2.png", height = 100, width = 400)),
 
+  use_darkmode(),
   # Making page close
   useShinyjs(),
   extendShinyjs(text = jscode, functions = c("closeWindow")),
@@ -254,9 +255,10 @@ ui <- fluidPage(
 # Define server logic required to draw a histogram
 server <- function(input, output, session) {
 
+  # Dark(light mode switch)
+  darkmode(label="⏳")
   # Notification Explanation app
-  
-  shinyalert(
+    shinyalert(
     title = "Welcome To PeliRoster",
     text = "This app was made to help you chose a movie to watch ! \n \n So good luck, have fun"
   )
