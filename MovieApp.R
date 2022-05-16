@@ -265,7 +265,20 @@ ui <- fluidPage(
                h2("Personality"),
                selectInput("UserInput", "Do you like movies ?", choices = c("", "YES, I LOVE IT", "nah, lame")),
                h4(textOutput("Result"))
-             ))
+             )),
+    tabPanel("PeliCalculator", icon = icon("calculator"),
+             mainPanel(
+               align = "center",
+               h5("You only have to use this caluclator"),
+               numericInput("num1", "Select the 1st #", 0),
+               numericInput("num2", "Select the 2nd #", 0),
+               selectInput("operator", "Select operacao",
+               choices = c("+","-","x","/"))
+             )),
+              mainPanel(
+                h2("the result is ::"),
+                textOutput("output")
+              )
   )
 )
 
@@ -274,6 +287,19 @@ ui <- fluidPage(
 # Define server logic required to draw a histogram
 server <- function(input, output, session){
 
+  
+  
+  #calculator
+  output$output <- renderText({
+          switch(input$operator,
+                 "+" = input$num1 + input$num2,
+                 "-" = input$num1 - input$num2,
+                 "x" = input$num1 * input$num2, 
+                 "/" = input$num1 / input$num2)
+  })
+  
+  
+  
   
   
   
