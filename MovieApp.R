@@ -273,11 +273,11 @@ ui <- fluidPage(
                numericInput("num1", "Select the 1st #", 0),
                numericInput("num2", "Select the 2nd #", 0),
                selectInput("operator", "Select operacao",
-               choices = c("+","-","x","/"))
-             )),
+               choices = c("+","-","x","/")),
+               h2("the result is ::"),
+               h4(textOutput("output")))),
               mainPanel(
-                h2("the result is ::"),
-                textOutput("output")
+               
               )
   )
 )
