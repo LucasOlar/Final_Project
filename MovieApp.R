@@ -258,6 +258,13 @@ ui <- fluidPage(
                br(),
                br(),
                br()
+             )),
+    tabPanel("PeliQuizz", icon = icon("body"),
+             mainPanel(
+               align = "center",
+               h2("Lamborghini"),
+               selectInput("UserInput", "how dumby are you ?", choices = c("", "a lot", "absolutely not")),
+               h4(textOutput("Result"))
              ))
   )
 )
@@ -267,6 +274,23 @@ ui <- fluidPage(
 # Define server logic required to draw a histogram
 server <- function(input, output, session){
 
+  
+  
+  
+  #personality questoin ???
+  Lamborghini = function(q.c){
+    if (q.c == "a lot"){
+      QuizResult ="You are not"
+    } else if (q.c == "absolutely not"){
+      QuizResult = "You are"
+    } else {
+      QuizResult = "" 
+    }
+    return(QuizResult)
+    }
+  
+  
+  output$Result <- renderText({ Lamborghini(input$UserInput)})
   # Dark light toggle swithc output
   observe({
     session$setCurrentTheme(
