@@ -45,18 +45,22 @@ list_genres <- append("All", list_genres)
 
 
 #setup the bslib theme object for dark/light switch mode
-my_theme = bs_theme(bootswatch = "darkly", 
-                     base_font = font_google("Righteous"))
-thematic_shiny(font = "auto")
-
+light <- bs_theme(bootswatch = "cerulean")
+dark <- bs_theme(bootswatch = "superhero")
+thematic_shiny(fg = "auto",
+               bg = "auto",
+               accent = "auto",
+               font = "auto",
+               inherit = TRUE)
 #-----------------------------------------------------------------------------------------------------------------------------------------------
 
 ui <- fluidPage(
   
   # Changing themes of page
   # shinythemes::themeSelector(),
-  theme = my_theme, 
-  radioButtons("current_themes", "App Theme:", c("Light" = "cerulean", "Dark" = "darkly")),
+  theme = light, 
+  checkboxInput("dark_mode", "Dark mode"),
+  
   
 
   # Application title
@@ -263,7 +267,7 @@ server <- function(input, output, session){
   # Dark light toggle swithc output
   observe({
     session$setCurrentTheme(
-      bs_theme_update(my_theme, bootswatch = input$current_theme)
+      if (isTRUE(input$dark_mode)) dark else light 
     )
   })
 
