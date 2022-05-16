@@ -262,8 +262,8 @@ ui <- fluidPage(
     tabPanel("PeliQuizz", icon = icon("body"),
              mainPanel(
                align = "center",
-               h2("Lamborghini"),
-               selectInput("UserInput", "how dumby are you ?", choices = c("", "a lot", "absolutely not")),
+               h2("Personality"),
+               selectInput("UserInput", "Do you like movies ?", choices = c("", "YES, I LOVE IT", "nah, lame")),
                h4(textOutput("Result"))
              ))
   )
@@ -278,11 +278,11 @@ server <- function(input, output, session){
   
   
   #personality questoin ???
-  Lamborghini = function(q.c){
-    if (q.c == "a lot"){
-      QuizResult ="You are not"
-    } else if (q.c == "absolutely not"){
-      QuizResult = "You are"
+  Personality = function(q.c){
+    if (q.c == "YES, I LOVE IT"){
+      QuizResult ="WE GRANT YOU AS THE MVP OF THE PLANET"
+    } else if (q.c == "nah, lame"){
+      QuizResult = "ERROR 404 - HUMANITY NOT DETECTED"
     } else {
       QuizResult = "" 
     }
@@ -290,7 +290,7 @@ server <- function(input, output, session){
     }
   
   
-  output$Result <- renderText({ Lamborghini(input$UserInput)})
+  output$Result <- renderText({Personality(input$UserInput)})
   # Dark light toggle swithc output
   observe({
     session$setCurrentTheme(
