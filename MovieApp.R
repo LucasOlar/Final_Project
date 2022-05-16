@@ -59,7 +59,10 @@ ui <- fluidPage(
   # Changing themes of page
   # shinythemes::themeSelector(),
   theme = light, 
-  checkboxInput("dark_mode", "Dark mode"),
+  checkboxInput(inputId = "dark_mode", 
+                label = icon("moon")
+  ),
+  
   
   
 
