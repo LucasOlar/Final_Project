@@ -6,7 +6,8 @@ library(stringr)
 library(shinycssloaders)
 library(shinyalert)
 library(bslib)
-library(shinyDarkmode)
+library(thematic)
+library(showtext)
 #To reference the other functions file 
 source(file = "functions_final_project.R", local = T)
 
@@ -42,22 +43,26 @@ list_genres <- append("All", list_genres)
 # list_country <- list_country[!duplicated(list_country)]
 #  print(list_country)
 
+
+#setup the bslib theme object for dark/light switch mode
+my_theme = bs_theme(bootswatch = "darkly", 
+                     base_font = font_google("Righteous"))
+thematic_shiny(font = "auto")
+
 #-----------------------------------------------------------------------------------------------------------------------------------------------
 
 ui <- fluidPage(
   
   # Changing themes of page
   # shinythemes::themeSelector(),
-  theme = bslib::bs_theme(bootswatch = "superhero"),
-  checkboxInput(
-    inputId = "themeToggle",
-    label = icon("sun")
-  ),
+  theme = my_theme, 
+  radioButtons("current_themes", "App Theme:", c("Light" = "cerulean", "Dark" = "darkly")),
   
+
   # Application title
   titlePanel(tags$img(src = "MyImage2.png", height = 100, width = 400)),
 
-  use_darkmode(),
+
   # Making page close
   useShinyjs(),
   extendShinyjs(text = jscode, functions = c("closeWindow")),
@@ -253,10 +258,16 @@ ui <- fluidPage(
 #---------------------------------------------------------------------------------------------------------------------------------------
 
 # Define server logic required to draw a histogram
-server <- function(input, output, session) {
+server <- function(input, output, session){
 
-  # Dark(light mode switch)
-  darkmode(label="⏳")
+  # Dark light toggle swithc output
+  observe({
+    session$setCurrentTheme(
+      bs_theme_update(my_theme, bootswatch = input$current_theme)
+    )
+  })
+
+  
   # Notification Explanation app
     shinyalert(
     title = "Welcome To PeliRoster",
