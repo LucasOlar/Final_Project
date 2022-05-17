@@ -58,9 +58,9 @@ ui <- fluidPage(
   
   # Changing themes of page
   # shinythemes::themeSelector(),
-  theme = light, 
-  checkboxInput(inputId = "dark_mode", 
-                label = icon("moon")
+  theme = dark, 
+  checkboxInput(inputId = "light_mode", 
+                label = icon("sun")
   ),
   
   
@@ -81,7 +81,7 @@ ui <- fluidPage(
              mainPanel(
                br(),
                textOutput("daily_text"),
-               tags$head(tags$style("#daily_text{color: cyan;font-size: 17px;font-style: bold; text-align: center;}")),
+               tags$head(tags$style("#daily_text{color: blue;font-size: 17px;font-style: bold; text-align: center;}")),
                br(),
                textOutput("text_1"),
                tags$head(tags$style("#text_1{color: orange;font-size: 37px;font-style: bold; text-align: center;}")),
@@ -269,12 +269,12 @@ ui <- fluidPage(
     tabPanel("PeliCalculator", icon = icon("calculator"),
              mainPanel(
                align = "center",
-               h5("You only have to use this caluclator"),
-               numericInput("num1", "Select the 1st #", 0),
-               numericInput("num2", "Select the 2nd #", 0),
-               selectInput("operator", "Select operacao",
+               h5("You want to know how much time you will spend enjoying your movie(s)?"),
+               numericInput("num1", "How many minutes does your movie last ?", 0),
+               numericInput("num2", "How many minutes does your other movie last ?", 0),
+               selectInput("operator", "Select operator",
                choices = c("+","-","x","/")),
-               h2("the result is ::"),
+               h2("The result is"),
                h4(textOutput("output")))),
               mainPanel(
                
@@ -320,7 +320,7 @@ server <- function(input, output, session){
   # Dark light toggle swithc output
   observe({
     session$setCurrentTheme(
-      if (isTRUE(input$dark_mode)) dark else light 
+      if (isTRUE(input$light_mode)) light else dark 
     )
   })
 
