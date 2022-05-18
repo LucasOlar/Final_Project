@@ -73,7 +73,7 @@ ui <- fluidPage(
   # Tabset pannel to choose from each tab
   tabsetPanel(
     id = "tabset",
-    tabPanel("PeliDaily", icon = icon("calendar"), 
+    tabPanel("Home", icon = icon("calendar"), 
              mainPanel(
                br(),
                textOutput("daily_text"),
@@ -103,7 +103,7 @@ ui <- fluidPage(
                br()
                )
              ),
-    tabPanel("PeliRecommend",
+    tabPanel("Filter",
       icon = icon("random"),
       fluid = TRUE,
       sidebarLayout(
@@ -164,7 +164,7 @@ ui <- fluidPage(
           )
       )
     ),
-    tabPanel("PeliSearch",
+    tabPanel("Search",
       icon = icon("search"),
       fluid = TRUE,
       sidebarLayout(
@@ -206,7 +206,7 @@ ui <- fluidPage(
           )
       )
     ),
-    tabPanel("PeliPopCorn", icon = icon("fire"),
+    tabPanel("PopCorn", icon = icon("fire"),
              mainPanel(
                style = "font-family: 'Comic Sans MS';",
                h2("POP CORN RECIPE !!!!", align = "center", style = "color:cyan"),
@@ -232,7 +232,7 @@ ui <- fluidPage(
                p(""),
                p("")
              )),
-    tabPanel("PeliData", icon = icon("info"),
+    tabPanel("Info", icon = icon("info"),
              mainPanel(
                align = "center",
                br(),
@@ -254,14 +254,14 @@ ui <- fluidPage(
                br(),
                br()
              )),
-    tabPanel("PeliQuizz", icon = icon("body"),
+    tabPanel("Quizz", icon = icon("body"),
              mainPanel(
                align = "center",
                h2("Personality"),
                selectInput("UserInput", "Do you like movies ?", choices = c("", "YES, I LOVE IT", "nah, lame")),
                h4(textOutput("Result"))
              )),
-    tabPanel("PeliCalculator", icon = icon("calculator"),
+    tabPanel("Calculator", icon = icon("calculator"),
              mainPanel(
                align = "center",
                h5("You want to know how much time you will spend enjoying your movie(s)?"),
