@@ -8,14 +8,15 @@ library(shinyalert)
 library(bslib)
 library(thematic)
 library(showtext)
+
 #To reference the other functions file 
 source(file = "functions_final_project.R", local = T)
 
 #To create spinner for charging graph and table
 options(spinner.color = "#0dc5c1", spinner.size = 1.4, spinner.type = 6)
 
+#To create a button that closes the app
 jscode <- "shinyjs.closeWindow = function() {window.close();}"
-
 
 # Show all the possible dubs of movies
 df <- data_find("https://raw.githubusercontent.com/rengalv/Movies-Data-Analysis-Grab-a-Popcorn/master/tmdb_5000_movies.csv")
@@ -32,16 +33,16 @@ list_genres <- append("All", list_genres)
 
 # We used this to have the lists of... to be able to manipulate them (not directly) :
 
-# Show all the possible original languages
-# list_languages <- movies_df[!duplicated(movies_df$original_language), ]
-# list_languages = list_languages %>%
-#   select(original_language)
-# unique(list_languages$original_language)
-
-# Show all the possible countries of production
-# list_country <- unlist(strsplit(movies_df$production_countries,","))
-# list_country <- list_country[!duplicated(list_country)]
-#  print(list_country)
+  # Show all the possible original languages
+    # list_languages <- movies_df[!duplicated(movies_df$original_language), ]
+    # list_languages = list_languages %>%
+    #   select(original_language)
+    # unique(list_languages$original_language)
+  
+  # Show all the possible countries of production
+    # list_country <- unlist(strsplit(movies_df$production_countries,","))
+    # list_country <- list_country[!duplicated(list_country)]
+    #  print(list_country)
 
 
 #setup the bslib theme object for dark/light switch mode
@@ -57,20 +58,15 @@ thematic_shiny(fg = "auto",
 ui <- fluidPage(
   
   # Changing themes of page
-  # shinythemes::themeSelector(),
   theme = dark, 
   checkboxInput(inputId = "light_mode", 
-                label = icon("sun")
-  ),
-  
-  
-  
+                label = icon("sun")),
 
-  # Application title
+  # Application logo
   titlePanel(tags$img(src = "MyImage2.png", height = 100, width = 400)),
 
 
-  # Making page close
+  # setup needed to make the app close when button pressed
   useShinyjs(),
   extendShinyjs(text = jscode, functions = c("closeWindow")),
   
@@ -214,6 +210,7 @@ ui <- fluidPage(
              mainPanel(
                style = "font-family: 'Comic Sans MS';",
                h2("POP CORN RECIPE !!!!", align = "center", style = "color:cyan"),
+               div(tags$img(src = "MyImage1.png", height = 300, width = 400), align = "center"),
                h4("Ingredients : ", style = "color:purple"),
                p(""),
                p("- 2 tbsp vegetable oil", style = "color:lime"),
@@ -221,19 +218,17 @@ ui <- fluidPage(
                p("- 250g caster sugar", style = "color:lime"),
                p("- 50g salted butter , cubed", style = "color:lime"),
                h3("Method", align = "center", style = "color:pink"),
-               h4("STEP 1", style = "color:yellow"),
+               h4("STEP 1", style = "color:red"),
                p("Put the oil in a large saucepan with a tight-fitting lid over a medium heat. Toss the popcorn kernels in the oil to coat. Put the lid on, and keep over a medium heat until you hear the first popcorn pop, then turn the heat to medium-low. When you begin to hear lots of popping, give the pan a shake. Continue to shake frequently until the popping stops. Turn off the heat and leave in the pan.", style = "color:orange"),
                p(""),
                p(""),
-               h4("STEP 2", style = "color:yellow"),
+               h4("STEP 2", style = "color:red"),
                p("Line a large baking tray with baking parchment. Put the sugar and 60ml water into a medium heavy-based saucepan and bring to the boil. Stir until the sugar has dissolved, then leave over a medium heat, without stirring, for 6-8 mins. It should start to turn into a golden caramel, swirl it around and add the butter - stand back as it may spit a little. Stir well until combined.", style = "color:orange"),
                p(""),
                p(""),
-               h4("STEP 3", style = "color:yellow"),
+               h4("STEP 3", style = "color:red"),
                p("Pour the caramel over the popcorn in the pan and stir immediately to coat the popcorn, being careful not to touch the hot caramel. Carefully transfer onto the lined baking tray and press down with the back of a spoon to spread evenly. Leave to cool for 5 mins, then break apart and eat. ", style = "color:orange"),
-               h2("ENJOY !!!!", align = "center", style = "color:red"),
-               p(""),
-               div(img(src="https://cdn.dribbble.com/users/953617/screenshots/10404379/media/1402a0bc576dc70b2ba1785ef44194c2.png", height = 500, width = 700), align = "center"),
+               h2("ENJOY !!!!", align = "center", style = "color:blue"),
                p(""),
                p("")
              )),
