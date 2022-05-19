@@ -399,21 +399,7 @@ ui <- fluidPage(
                align = "center",
                h2("Personality"),
                selectInput("UserInput", "Do you like movies ?", choices = c("", "YES, I LOVE IT", "nah, lame")),
-               h4(textOutput("Result")),
-               br(),
-               br(),
-               br(),
-               br(),
-               br(),
-               br(),
-               br(),
-               br(),
-               br(),
-               br(),
-               h2("Sacred"),
-               selectInput("UserInput", "as ?", choices = c("", "d", "dd")),
                h4(textOutput("Result"))
-            
              )),
     tabPanel("Calculator", icon = icon("calculator"),
              mainPanel(
@@ -462,19 +448,6 @@ server <- function(input, output, session){
     return(QuizResult)
     }
   
-
-
-  
-  Sacred = function(q.c){
-    if (q.c == "d"){
-      QuizResult ="ish"
-    } else if (q.c == "dd"){
-      QuizResult = "ddsdfsf"
-    } else {
-      QuizResult = "" 
-    }
-    return(QuizResult)
-  }
   
   output$Result <- renderText({Personality(input$UserInput)})
   # Dark light toggle swithc output
