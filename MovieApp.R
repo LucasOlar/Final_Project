@@ -34,13 +34,13 @@ list_genres <- append("All", list_genres)
 # We used this to have the lists of... to be able to manipulate them (not directly) :
 
   # Show all the possible original languages
-    # list_languages <- movies_df[!duplicated(movies_df$original_language), ]
+    # list_languages <- df[!duplicated(df$original_language), ]
     # list_languages = list_languages %>%
     #   select(original_language)
     # unique(list_languages$original_language)
   
   # Show all the possible countries of production
-    # list_country <- unlist(strsplit(movies_df$production_countries,","))
+    # list_country <- unlist(strsplit(df$production_countries,","))
     # list_country <- list_country[!duplicated(list_country)]
     #  print(list_country)
 
@@ -53,6 +53,136 @@ thematic_shiny(fg = "auto",
                accent = "auto",
                font = "auto",
                inherit = TRUE)
+
+# #creation table pour les categories
+df_haloween <- df %>%
+  select(-1,-2,-3,-4,-7,-8,-9,-10,-11,-15) %>%
+  filter(grepl(pattern = "gore", x= keywords)) %>%
+  filter(grepl(pattern = "Horror", x= genres)) #%>%
+
+best_haloween <- df_haloween[order(-df_haloween$vote_average),] %>%
+  select(1,2,5)%>%
+  rename(
+    Title = original_title,
+    Overview = overview,
+    Rating = vote_average
+  )
+
+
+#Saint valentin
+
+df_love <- df %>%
+  select(-1,-2,-3,-4,-7,-8,-9,-10,-11,-15) %>%
+  filter(grepl(pattern = "love", x= keywords)) %>%
+  filter(grepl(pattern = "Romance", x= genres))
+
+best_love <- df_love[order(-df_love$vote_average),]%>%
+  select(1,2,5)%>%
+  rename(
+    Title = original_title,
+    Overview = overview,
+    Rating = vote_average
+  )
+
+#Noel en famille
+
+df_christmas<- df %>%
+  select(-1,-2,-3,-4,-7,-8,-9,-10,-11,-15) %>%
+  filter(grepl(pattern = "christmas", x= keywords)) %>%
+  filter(grepl(pattern = "Family", x= genres))
+
+best_christmas <- df_christmas[order(-df_christmas$vote_average),]%>%
+  select(1,2,5)%>%
+  rename(
+    Title = original_title,
+    Overview = overview,
+    Rating = vote_average
+  )
+
+#invasion des aliens
+
+df_alien<- df %>%
+  select(-1,-2,-3,-4,-7,-8,-9,-10,-11,-15) %>%
+  filter(grepl(pattern = "alien", x= keywords)) %>%
+  filter(grepl(pattern = "Science Fiction", x= genres))
+
+best_alien <- df_alien[order(-df_alien$vote_average),]%>%
+  select(1,2,5)%>%
+  rename(
+    Title = original_title,
+    Overview = overview,
+    Rating = vote_average
+  )
+
+#Pour les enfants
+
+df_kids<- df %>%
+  select(-1,-2,-3,-4,-7,-8,-9,-10,-11,-15) %>%
+  filter(grepl(pattern = "Animation", x= genres))%>%
+  filter(grepl(pattern = "English", x = spoken_languages))##marche pas
+
+best_kids <- df_kids[order(-df_kids$vote_average),]%>%
+  select(1,2,5)%>%
+  rename(
+    Title = original_title,
+    Overview = overview,
+    Rating = vote_average
+  )
+
+#marvel
+df_marvel<- df %>%
+  select(-1,-2,-3,-4,-7,-8,-9,-10,-11,-15) %>%
+  filter(grepl(pattern = "marvel", x= keywords))
+best_marvel <- df_marvel[order(-df_marvel$vote_average),]%>%
+  select(1,2,5)%>%
+  rename(
+    Title = original_title,
+    Overview = overview,
+    Rating = vote_average
+  )
+
+#DC
+df_dc<- df %>%
+  select(-1,-2,-3,-4,-7,-8,-9,-10,-11,-15) %>%
+  filter(grepl(pattern = "dc comics", x= keywords))
+best_dc <- df_dc[order(-df_dc$vote_average),]%>%
+  select(1,2,5)%>%
+  rename(
+    Title = original_title,
+    Overview = overview,
+    Rating = vote_average
+  )
+
+#gangster
+
+df_gangster<- df %>%
+  select(-1,-2,-3,-4,-7,-8,-9,-10,-11,-15) %>%
+  filter(grepl(pattern = "gangster", x= keywords))%>%
+  filter(grepl(pattern = "Crime", x= genres))
+best_gangster <- df_gangster[order(-df_gangster$vote_average),]%>%
+  select(1,2,5)%>%
+  rename(
+    Title = original_title,
+    Overview = overview,
+    Rating = vote_average
+  )
+
+#japonais
+
+df_japan<- df %>%
+  select(-1,-2,-3,-4,-7,-8,-9,-10,-11,-15) %>%
+  filter(grepl(pattern = "Japan", x=production_countries))
+
+best_japan <- df_japan[order(-df_japan$vote_average),]%>%
+  select(1,2,5)%>%
+  rename(
+    Title = original_title,
+    Overview = overview,
+    Rating = vote_average
+  )
+
+
+
 #-----------------------------------------------------------------------------------------------------------------------------------------------
 
 ui <- fluidPage(
@@ -208,6 +338,13 @@ ui <- fluidPage(
     ),
     tabPanel("PopCorn", icon = icon("fire"),
              mainPanel(
+               selectInput("categories", "What do you want to watch tonight?", c("Haloween", "Valentine's day", "Christman with the family", "Alien Invasion", "For Kids","Marvel","DC Comics", "Gangster", "Japan")),
+               tableOutput("movietable1")
+               )
+             ),
+               
+    tabPanel("PopCorn", icon = icon("fire"),
+             mainPanel(
                style = "font-family: 'Comic Sans MS';",
                h2("POP CORN RECIPE !!!!", align = "center", style = "color:cyan"),
                div(tags$img(src = "MyImage1.png", height = 300, width = 400), align = "center"),
@@ -254,6 +391,8 @@ ui <- fluidPage(
                br(),
                br()
              )),
+
+    
     tabPanel("Quizz", icon = icon("body"),
              mainPanel(
                align = "center",
@@ -517,21 +656,43 @@ server <- function(input, output, session){
   
   
   
- # Tab 4 --> Popcorn
-    # No code/data needed for tab 4
+ # Tab 4 --> Categories
+  
+  datasetInput <- reactive({
+    switch(input$categories,
+           "Haloween" = best_haloween,
+           "Valentine's day"= best_love,  
+           "Christman with the family"= best_christmas,
+           "Alien Invasion" = best_alien,
+           "For Kids" = best_kids,
+           "Marvel" = best_marvel,
+           "DC Comics" = best_dc,
+           "Gangster" = best_gangster,
+           "Japoan" = best_japan)
+  })
+  
+  output$movietable1 <- renderTable(datasetInput())
+  
+  
+  
+  
+  
+ # Tab 5 --> Popcorn
+    # No code/data needed for tab 5
   
   
   
   
 
   
-  # Tab 5 --> Data
+  # Tab 6 --> Data
   
   # Render plotly plot 
   output$plot_data <- renderPlotly({
     plot <- ggplotly(plot_movie(df = df)) %>% layout(height = 600, width = 700)
   })
   
+  #tab 7
   
   # close app
   observeEvent(input$close,{

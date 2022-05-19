@@ -62,6 +62,8 @@ data_find <- function(url) {
   return(movies_df)
 }
 
+
+
 #------------------------------------------------------------------------------------------------------------------------------------------------
 
 #Finding a daily movie by choosing randomly based on seed fixed on date --> for PeliDaily tab
@@ -75,6 +77,7 @@ daily_find = function(date, df){
 }
 
 #------------------------------------------------------------------------------------------------------------------------------------------------
+
 
 #We are making the function that recommends a movie based on our criteria --> For PeliSearch Tab
 data_recommend <- function(df, genre_1, genre_2, vote_average_input, date_before,
