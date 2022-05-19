@@ -45,14 +45,6 @@ list_genres <- append("All", list_genres)
     #  print(list_country)
 
 
-#setup the bslib theme object for dark/light switch mode
-light <- bs_theme(bootswatch = "cerulean")
-dark <- bs_theme(bootswatch = "superhero")
-thematic_shiny(fg = "auto",
-               bg = "auto",
-               accent = "auto",
-               font = "auto",
-               inherit = TRUE)
 
 # #creation table pour les categories
 df_haloween <- df %>%
@@ -180,6 +172,15 @@ best_japan <- df_japan[order(-df_japan$vote_average),]%>%
     Overview = overview,
     Rating = vote_average
   )
+
+#setup the bslib theme object for dark/light switch mode
+light <- bs_theme(bootswatch = "cerulean")
+dark <- bs_theme(bootswatch = "superhero")
+thematic_shiny(fg = "auto",
+               bg = "auto",
+               accent = "auto",
+               font = "auto",
+               inherit = TRUE)
 
 
 
@@ -396,40 +397,63 @@ ui <- fluidPage(
     
     tabPanel("Quizz", icon = icon("quiz"),
              mainPanel(
-               align = "center",
+               align = "left",
                h2("Personality"),
                selectInput("UserInput", "Do you like movies ?", choices = c("", "YES, I LOVE IT", "nah, lame")),
-               h4(textOutput("Result")),
-               br(),
-               br(),
-               br(),
-               br(),
-               br(),
-               br(),
-               br(),
-               br(),
-               br(),
-               br(),
-               h2("Sacred"),
-               selectInput("UserInput", "as ?", choices = c("", "d", "dd")),
-               h4(textOutput("Result"))
+               h3(textOutput("Result")),
+           
+               h2("Adventure"),
+               selectInput("UserInput1", "Are you an adventurous person ?", choices = c("", "Yes, Indiana Jones is my second name", "No, I prefer my comfort")),
+               h3(textOutput("Result1")),
             
+               h2("Animation"),
+               selectInput("UserInput2", "Are you a Pixar or Disney fan ?", choices = c("", "Yes, I even cried watching CARS", "No, it's for kids")),
+               h3(textOutput("Result2")),
+
+               h2("Comedy"),
+               selectInput("UserInput3", "Do you want to laugh ?", choices = c("", "Yes, I need to right now", "No, I prefer to live a life full of seriousness")),
+               h3(textOutput("Result3")),
+                
+               h2("Crime"),
+               selectInput("UserInput4", "Are you the next Sherlock Holmes ?", choices = c("", "Yes, I am the best detective of the world", "No, I do not to be involved in a crime scene")),
+               h3(textOutput("Result4")),
+
+               h2("Documentary"),
+               selectInput("UserInput5", "Have you always been curious ?", choices = c("", "Yes, the only thing I know is that I know nothing", "No, I hate learning new stuff")),
+               h3(textOutput("Result5")),
+               
+               h2("Drama"),
+               selectInput("UserInput6", "Are you feeling sad ?", choices = c("", "Yes, unfortunately", "No, I am so happy")),
+               h3(textOutput("Result6")),
+               
+               h2("Family"),
+               selectInput("UserInput7", "Family is the most important link ? ", choices = c("", "Yes, I am Dom Toretto, family first", "No comment")),
+               h3(textOutput("Result7")),
+               
+               h2("Fantasy"),
+               selectInput("UserInput8", "Do you feel like a superhero", choices = c("", "Yes, they call me Bruce Wayne or Batman", "No, I consider myself the villain")),
+               h3(textOutput("Result8")),
+               
+               h2("Foreign"),
+               selectInput("UserInput9", "Let's travel !", choices = c("", "Yes, let's learn about an other culture", "No, let's stay here")),
+               h3(textOutput("Result9")),
+               
+               h2("Gangster"),
+               selectInput("UserInput10", "La Cosa Nostra, Micky Cohen, Russian Mafia...", choices = c("", "Yes, I like the style and power they have", "No, they are criminals")),
+               h3(textOutput("Result10")),
+               
+               h2("History"),
+               selectInput("UserInput11", "Are you aware about historical facts ?", choices = c("", "Yes, I am and we will be in history books due to Covid", "No, Wait ! You are telling me there was no TV in Ancient Rome ?")),
+               h3(textOutput("Result11")),
+               
+               actionBttn("clear_10", "CLEAR", icon = icon("ban"), color = "danger", style = "fill")
+               
              )),
-    tabPanel("Calculator", icon = icon("calculator"),
-             mainPanel(
-               align = "center",
-               h5("You want to know how much time you will spend enjoying your movie(s)?"),
-               numericInput("num1", "How many minutes does your movie last ?", 0),
-               numericInput("num2", "How many minutes does your other movie last ?", 0),
-               selectInput("operator", "Select operator",
-               choices = c("+","-","x","/")),
-               h2("The result is"),
-               h4(textOutput("output")))),
-              mainPanel(
+ 
                
               )
   )
-)
+
 
 #---------------------------------------------------------------------------------------------------------------------------------------
 
@@ -437,17 +461,7 @@ ui <- fluidPage(
 server <- function(input, output, session){
 
   
-  
-  #calculator
-  output$output <- renderText({
-          switch(input$operator,
-                 "+" = input$num1 + input$num2,
-                 "-" = input$num1 - input$num2,
-                 "x" = input$num1 * input$num2, 
-                 "/" = input$num1 / input$num2)
-  })
-  
-  
+
   
   
   #personality questoin ???
@@ -465,18 +479,197 @@ server <- function(input, output, session){
 
 
   
-  Sacred = function(q.c){
-    if (q.c == "d"){
-      QuizResult ="ish"
-    } else if (q.c == "dd"){
-      QuizResult = "ddsdfsf"
+  Adventure = function(q.c){
+    if (q.c == "Yes, Indiana Jones is my second name"){
+      QuizResult1 ="Enjoy JURASSIC PARK"
+    } else if (q.c == "No, I prefer my comfort"){
+      QuizResult1 = "Keep scrolling down"
     } else {
-      QuizResult = "" 
+      QuizResult1 = "" 
     }
-    return(QuizResult)
+    return(QuizResult1)
+  }
+
+  Animation = function(q.c){
+    if (q.c == "Yes, I even cried watching CARS"){
+      QuizResult2 ="Have fun watching PENGUINS OF MADAGASCAR"
+    } else if (q.c == "No, it's for kids"){
+      QuizResult2 = "Keep scrolling down"
+    } else {
+      QuizResult2 = ""
+    }
+    return(QuizResult2)
+  }
+
+ Comedy = function(q.c){
+  if (q.c == "Yes, I need to right now"){
+    QuizResult3 ="Have fun with BRUCE ALMIGHTY"
+  } else if (q.c == "No, I prefer to live a life full of seriousness"){
+    QuizResult3 = "Keep scrolling down"
+  } else {
+    QuizResult3 = ""
+  }
+  return(QuizResult3)
+}
+
+  Crime = function(q.c){
+    if (q.c == "Yes, I am the best detective of the world"){
+      QuizResult4 ="Be focused on all the clues THE TRANSPORTER gives you"
+    } else if (q.c == "No, I do not to be involved in a crime scene"){
+      QuizResult4 = "Keep scrolling down"
+    } else {
+      QuizResult4 = ""
+    }
+    return(QuizResult4)
+  }
+
+  Documentary = function(q.c){
+    if (q.c == "Yes, the only thing I know is that I know nothing"){
+      QuizResult5 ="Learn more about a war through CENSORED VOICES"
+    } else if (q.c == "No, I hate learning new stuff"){
+      QuizResult5 = "Keep scrolling down"
+    } else {
+      QuizResult5 = ""
+    }
+    return(QuizResult5)
+  }
+
+  
+  Drama = function(q.c){
+    if (q.c == "Yes, unfortunately"){
+      QuizResult6 ="Take a tissue while crying on GARDEN STATE"
+    } else if (q.c == "No, I am so happy"){
+      QuizResult6 = "Keep scrolling down"
+    } else {
+      QuizResult6 = "" 
+    }
+    return(QuizResult6)
   }
   
+  
+  Family = function(q.c){
+    if (q.c == "Yes, I am Dom Toretto, family first"){
+      QuizResult7 ="Laugh together with THE MUPPET SHOW"
+    } else if (q.c == "No comment"){
+      QuizResult7 = "Keep scrolling down"
+    } else {
+      QuizResult7 = "" 
+    }
+    return(QuizResult7)
+  }
+  
+  
+  Fantasy = function(q.c){
+    if (q.c == "Yes, they call me Bruce Wayne or Batman"){
+      QuizResult8 ="Save the city of Gotham in BATMAN BEGINS"
+    } else if (q.c == "No, I consider myself the villain"){
+      QuizResult8 = "Joker ? Cobblepot ? Harvey Dent ? The Riddler ? Harley Quinn ?"
+    } else {
+      QuizResult8 = "" 
+    }
+    return(QuizResult8)
+  }
+  
+  
+ Foreign = function(q.c){
+    if (q.c == "Yes, let's learn about an other culture"){
+      QuizResult9 =" Next stop Bollywood, but for GANDHI; MY FATHER"
+    } else if (q.c == "No, let's stay here"){
+      QuizResult9 = "Keep scrolling down"
+    } else {
+      QuizResult9 = "" 
+    }
+    return(QuizResult9)
+  }
+  
+  
+  Gangster = function(q.c){
+    if (q.c == "Yes, I like the style and power they have"){
+      QuizResult10 ="The eyes Chico, they never lie, specially in SCARFACE"
+    } else if (q.c == "No, they are criminals"){
+      QuizResult10 = "Call 911"
+    } else {
+      QuizResult10 = "" 
+    }
+    return(QuizResult10)
+  }
+  
+  
+  History = function(q.c){
+    if (q.c == "Yes, I am and we will be in history books due to Covid"){
+      QuizResult11 ="Let's discover the dead city of POMPEII"
+    } else if (q.c == "No, Wait ! You are telling me there was no TV in Ancient Rome ?"){
+      QuizResult11 = "Keep scrolling down"
+    } else {
+      QuizResult11 = "" 
+    }
+    return(QuizResult11)
+  }
+  
+  # 
+  # Adventure = function(q.c){
+  #   if (q.c == "Yes, Indiana Jones is my second name"){
+  #     QuizResult1 ="Enjoy JURASSIC PARK"
+  #   } else if (q.c == "No, I prefer my comfort"){
+  #     QuizResult1 = "Keep scrolling down"
+  #   } else {
+  #     QuizResult1 = "" 
+  #   }
+  #   return(QuizResult1)
+  # }
+  # 
+  # 
+  # Adventure = function(q.c){
+  #   if (q.c == "Yes, Indiana Jones is my second name"){
+  #     QuizResult1 ="Enjoy JURASSIC PARK"
+  #   } else if (q.c == "No, I prefer my comfort"){
+  #     QuizResult1 = "Keep scrolling down"
+  #   } else {
+  #     QuizResult1 = "" 
+  #   }
+  #   return(QuizResult1)
+  # }
+  # 
+  
+  
   output$Result <- renderText({Personality(input$UserInput)})
+  output$Result1 <- renderText({Adventure(input$UserInput1)})
+  output$Result2 <- renderText({Animation(input$UserInput2)})
+  output$Result3 <- renderText({Comedy(input$UserInput3)})
+  output$Result4 <- renderText({Crime(input$UserInput4)})
+  output$Result5 <- renderText({Documentary(input$UserInput5)})
+  output$Result6 <- renderText({Drama(input$UserInput6)})
+  output$Result7 <- renderText({Family(input$UserInput7)})
+  output$Result8 <- renderText({Fantasy(input$UserInput8)})
+  output$Result9 <- renderText({Foreign(input$UserInput9)})
+  output$Result10 <- renderText({Gangster(input$UserInput10)})
+  output$Result11 <- renderText({History(input$UserInput11)})
+  # output$Result12 <- renderText({Horror(input$UserInput12)})
+  # output$Result13 <- renderText({Music(input$UserInput13)})
+  # output$Result14 <- renderText({Mystery(input$UserInput14)})
+  
+  observeEvent(input$clear_10,{
+    updateSelectInput(session, "UserInput", selected = TRUE)
+    updateSelectInput(session, "UserInput1", selected  = TRUE)
+    updateSelectInput(session, "UserInput2", selected = TRUE)
+    updateSelectInput(session, "UserInput3", selected =  TRUE)
+    updateSelectInput(session, "UserInput4", selected = TRUE)
+    updateSelectInput(session, "UserInput5", selected = TRUE)
+    updateSelectInput(session, "UserInput6", selected = TRUE)
+    updateSelectInput(session, "UserInput7", selected  = TRUE)
+    updateSelectInput(session, "UserInput8", selected = TRUE)
+    updateSelectInput(session, "UserInput9", selected =  TRUE)
+    updateSelectInput(session, "UserInput10", selected = TRUE)
+    updateSelectInput(session, "UserInput11", selected = TRUE)
+    # updateSelectInput(session, "UserInput12", selected = TRUE)
+    # updateSelectInput(session, "UserInput13", selected = TRUE)
+    # updateSelectInput(session, "UserInput14", selected = TRUE)
+  })
+  
+  
+  
+  
+  
   # Dark light toggle swithc output
   observe({
     session$setCurrentTheme(
