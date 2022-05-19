@@ -203,7 +203,7 @@ ui <- fluidPage(
   # Tabset pannel to choose from each tab
   tabsetPanel(
     id = "tabset",
-    tabPanel("Home", icon = icon("calendar"), 
+    tabPanel("Daily", icon = icon("calendar"), 
              mainPanel(
                br(),
                textOutput("daily_text"),
@@ -336,7 +336,7 @@ ui <- fluidPage(
           )
       )
     ),
-    tabPanel("PopCorn", icon = icon("fire"),
+    tabPanel("Categories", icon = icon("book"),
              mainPanel(
                selectInput("categories", "What do you want to watch tonight?", c("Haloween", "Valentine's day", "Christman with the family", "Alien Invasion", "For Kids","Marvel","DC Comics", "Gangster", "Japan")),
                tableOutput("movietable1")
