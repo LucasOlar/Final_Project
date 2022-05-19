@@ -156,6 +156,8 @@ data_search <- function(df, title_input, key_input_1, key_input_2, key_input_3, 
 
 # We make a function that will create a desired plot -> For the PeliData Tab
 plot_movie = function(df){
+  
+  df = movies_df
   plot <- plot_ly(data = df, x = ~release_date, y = ~budget, z = ~revenue,
                   marker = list(
                     color = ~vote_average, colorscale = c('#FFE1A1', '#683531'), 
@@ -183,12 +185,12 @@ plot_movie = function(df){
       text = df$title,
       hoverinfo = "text",
       showlegend = F)
+  
+  plot
 
   return(plot)
 }
 
 #------------------------------------------------------------------------------------------------------------------------------------------------
-
-
 
 

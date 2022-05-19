@@ -203,11 +203,12 @@ ui <- fluidPage(
   # Tabset pannel to choose from each tab
   tabsetPanel(
     id = "tabset",
+    type = "pills",
     tabPanel("Daily", icon = icon("calendar"), 
              mainPanel(
                br(),
                textOutput("daily_text"),
-               tags$head(tags$style("#daily_text{color: blue;font-size: 17px;font-style: bold; text-align: center;}")),
+               tags$head(tags$style("#daily_text{color: cyan;font-size: 17px;font-style: bold; text-align: center;}")),
                br(),
                textOutput("text_1"),
                tags$head(tags$style("#text_1{color: orange;font-size: 37px;font-style: bold; text-align: center;}")),
@@ -393,7 +394,7 @@ ui <- fluidPage(
              )),
 
     
-    tabPanel("Quizz", icon = icon("body"),
+    tabPanel("Quizz", icon = icon("quiz"),
              mainPanel(
                align = "center",
                h2("Personality"),
@@ -431,8 +432,6 @@ server <- function(input, output, session){
                  "x" = input$num1 * input$num2, 
                  "/" = input$num1 / input$num2)
   })
-  
-  
   
   
   
