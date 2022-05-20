@@ -446,6 +446,42 @@ ui <- fluidPage(
                selectInput("UserInput11", "Are you aware about historical facts ?", choices = c("", "Yes, I am and we will be in history books due to Covid", "No, Wait ! You are telling me there was no TV in Ancient Rome ?")),
                h3(textOutput("Result11")),
                
+               h2("Horror"),
+               selectInput("UserInput12", "Do you like being scared ?", choices = c("", "Yes, the uncanny is something I long for", "No, I do not understand this pleasure ?")),
+               h3(textOutput("Result12")),
+               
+               h2("Music"),
+               selectInput("UserInput13", "Have you the rhythm inside you ?", choices = c("", "Yes, I love dancing and singing in the rain", "No, I do not consider this as art")),
+               h3(textOutput("Result13")),
+               
+               h2("Mystery"),
+               selectInput("UserInput14", "Are you ready to solve a enigma ?", choices = c("", "Yes, all my friends call me Scooby-Doo or Detective Conan", "No, it is not my job")),
+               h3(textOutput("Result14")),
+               
+               h2("Romance"),
+               selectInput("UserInput15", "Love is in the air, right ?", choices = c("", "Yes, let's cry about some beautiful love story", "No, air is composed of oxygen, nitrogen and carbon dioxide")),
+               h3(textOutput("Result15")),
+               
+               h2("Science_Fiction"),
+               selectInput("UserInput16", "What is real ? Is there a multiverse ?", choices = c("", "Yes, there is, we are not alone", "No, we are the only living creatures in the whole universe")),
+               h3(textOutput("Result16")),
+               
+               h2("Thriller"),
+               selectInput("UserInput17", "What if everything was already written ?", choices = c("", "Yes, fate is only a road we follow blindly", "No, we are free of choice")),
+               h3(textOutput("Result17")),
+               
+               h2("TV_Movie"),
+               selectInput("UserInput18", "When you do not want to watch it at the theater...", choices = c("", "Yes, some movies are not worth my money", "No, all movies have their place in a theater")),
+               h3(textOutput("Result18")),
+               
+               h2("War"),
+               selectInput("UserInput19", "Fix violence by violence does nothing but create violence", choices = c("", "Yes, war is hell", "No, fighting is for the brave")),
+               h3(textOutput("Result19")),
+               
+               h2("Western"),
+               selectInput("UserInput20", "The road to Gold...", choices = c("", "Yes, let's find this yellow metal", "No, there are already populations there")),
+               h3(textOutput("Result20")),
+               
                actionBttn("clear_10", "CLEAR", icon = icon("ban"), color = "danger", style = "fill")
                
              )),
@@ -605,31 +641,123 @@ server <- function(input, output, session){
     }
     return(QuizResult11)
   }
+
+
+  Horror = function(q.c){
+    if (q.c == "Yes, the uncanny is something I long for"){
+      QuizResult12 ="Be prepared not to sleep tonight thanks to RESIDENT EVIL : EXTINCTION"
+    } else if (q.c == "No, I do not understand this pleasure ?"){
+      QuizResult12 = "Neither do we"
+    } else {
+      QuizResult12 = ""
+    }
+    return(QuizResult12)
+  }
+
+
+  Music = function(q.c){
+    if (q.c == "Yes, I love dancing and singing in the rain"){
+      QuizResult13 ="Let's dance to the beat of STEP UP"
+    } else if (q.c == "No, I do not consider this as art"){
+      QuizResult13 = "Keep scrolling down"
+    } else {
+      QuizResult13 = ""
+    }
+    return(QuizResult13)
+  }
+
+
+
+Mystery = function(q.c){
+  if (q.c == "Yes, all my friends call me Scooby-Doo or Detective Conan"){
+    QuizResult14 ="Then go clean the city full of monster in SCOOBY-DOO 2 : MONSTERS UNLEASHED"
+  } else if (q.c == "No, it is not my job"){
+    QuizResult14 = "Keep scrolling down"
+  } else {
+    QuizResult14 = ""
+  }
+  return(QuizResult14)
+}
+
+
+
+  Romance = function(q.c){
+    if (q.c == "Yes, let's cry about some beautiful love story"){
+      QuizResult15 ="Prepare for a cosy evening with LOVE ACTUALLY"
+    } else if (q.c == "No, air is composed of oxygen, nitrogen and carbon dioxide"){
+      QuizResult15 = "So pragmatic..."
+    } else {
+      QuizResult15 = ""
+    }
+    return(QuizResult15)
+  }
+
+
+
+  Science_Fiction = function(q.c){
+    if (q.c == "Yes, there is, we are not alone"){
+      QuizResult16 ="Understand the Area 51 thanks to SUPER 8"
+    } else if (q.c == "No, we are the only living creatures in the whole universe"){
+      QuizResult16 = "A bit selfish no..."
+    } else {
+      QuizResult16 = ""
+    }
+    return(QuizResult16)
+  }
+
+
+
+  Thriller = function(q.c){
+    if (q.c == "Yes, fate is only a road we follow blindly"){
+      QuizResult17 ="Follow THE DA VINCI CODE to solve some mysteries of the past"
+    } else if (q.c == "No, we are free of choice"){
+      QuizResult17 = "Keep scrolling down"
+    } else {
+      QuizResult17 = ""
+    }
+    return(QuizResult17)
+  }
+
+
+
+  TV_Movie = function(q.c){
+    if (q.c == "Yes, some movies are not worth my money"){
+      QuizResult18 ="Sing along in HIGH SCHOOL MUSICAL"
+    } else if (q.c == "No, all movies have their place in a theater"){
+      QuizResult18 = "Keep scrolling down"
+    } else {
+      QuizResult18 = ""
+    }
+    return(QuizResult18)
+  }
+
+
+
+  War = function(q.c){
+    if (q.c == "Yes, war is hell"){
+      QuizResult19 ="Go back in time in Sparta with 300"
+    } else if (q.c == "No, fighting is for the brave"){
+      QuizResult19 = "Keep scrolling down"
+    } else {
+      QuizResult19 = ""
+    }
+    return(QuizResult19)
+  }
+
   
-  # 
-  # Adventure = function(q.c){
-  #   if (q.c == "Yes, Indiana Jones is my second name"){
-  #     QuizResult1 ="Enjoy JURASSIC PARK"
-  #   } else if (q.c == "No, I prefer my comfort"){
-  #     QuizResult1 = "Keep scrolling down"
-  #   } else {
-  #     QuizResult1 = "" 
-  #   }
-  #   return(QuizResult1)
-  # }
-  # 
-  # 
-  # Adventure = function(q.c){
-  #   if (q.c == "Yes, Indiana Jones is my second name"){
-  #     QuizResult1 ="Enjoy JURASSIC PARK"
-  #   } else if (q.c == "No, I prefer my comfort"){
-  #     QuizResult1 = "Keep scrolling down"
-  #   } else {
-  #     QuizResult1 = "" 
-  #   }
-  #   return(QuizResult1)
-  # }
-  # 
+  
+  Western = function(q.c){
+    if (q.c == "Yes, let's find this yellow metal"){
+      QuizResult20 ="Let 's go horse-back riding towards Far west in SHANGAI NOON"
+    } else if (q.c == "No, there are already populations there"){
+      QuizResult20 = "Well, visit another page on our App to find a movie..."
+    } else {
+      QuizResult20 = ""
+    }
+    return(QuizResult20)
+  }
+
+
   
   
   output$Result <- renderText({Personality(input$UserInput)})
@@ -644,9 +772,16 @@ server <- function(input, output, session){
   output$Result9 <- renderText({Foreign(input$UserInput9)})
   output$Result10 <- renderText({Gangster(input$UserInput10)})
   output$Result11 <- renderText({History(input$UserInput11)})
-  # output$Result12 <- renderText({Horror(input$UserInput12)})
-  # output$Result13 <- renderText({Music(input$UserInput13)})
-  # output$Result14 <- renderText({Mystery(input$UserInput14)})
+  output$Result12 <- renderText({Horror(input$UserInput12)})
+  output$Result13 <- renderText({Music(input$UserInput13)})
+  output$Result14 <- renderText({Mystery(input$UserInput14)})
+  output$Result15 <- renderText({Romance(input$UserInput15)})
+  output$Result16 <- renderText({Science_Fiction(input$UserInput16)})
+  output$Result17 <- renderText({Thriller(input$UserInput17)})
+  output$Result18 <- renderText({TV_Movie(input$UserInput18)})
+  output$Result19 <- renderText({War(input$UserInput19)})
+  output$Result20 <- renderText({Western(input$UserInput20)})
+  
   
   observeEvent(input$clear_10,{
     updateSelectInput(session, "UserInput", selected = TRUE)
@@ -661,9 +796,15 @@ server <- function(input, output, session){
     updateSelectInput(session, "UserInput9", selected =  TRUE)
     updateSelectInput(session, "UserInput10", selected = TRUE)
     updateSelectInput(session, "UserInput11", selected = TRUE)
-    # updateSelectInput(session, "UserInput12", selected = TRUE)
-    # updateSelectInput(session, "UserInput13", selected = TRUE)
-    # updateSelectInput(session, "UserInput14", selected = TRUE)
+    updateSelectInput(session, "UserInput12", selected = TRUE)
+    updateSelectInput(session, "UserInput13", selected = TRUE)
+    updateSelectInput(session, "UserInput14", selected = TRUE)
+    updateSelectInput(session, "UserInput15", selected = TRUE)
+    updateSelectInput(session, "UserInput16", selected = TRUE)
+    updateSelectInput(session, "UserInput17", selected = TRUE)
+    updateSelectInput(session, "UserInput18", selected = TRUE)
+    updateSelectInput(session, "UserInput19", selected = TRUE)
+    updateSelectInput(session, "UserInput20", selected = TRUE)
   })
   
   
