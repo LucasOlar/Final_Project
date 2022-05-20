@@ -485,6 +485,18 @@ ui <- fluidPage(
                actionBttn("clear_10", "CLEAR", icon = icon("ban"), color = "danger", style = "fill")
                
              )),
+    
+    tabPanel("Who we are", icon = icon("face"),
+             mainPanel(
+               h2("Peliroster is an App created by Lumara Productions"),
+               h3("Lumara Productions is a company focused in the entertaining industry, created by three GSEM students"),
+               h4("The founders are Lucas, Matteo and Raphaël.
+               With years of experience in the showbusiness, they listened to one of the major issue people were facing. 
+              Due to the current society and the evolution of technology, one finds himself with too much choices or information available in all domains nowadays. 
+              As the saying goes : Too much information kills the information. 
+              You have plenty things to choose from, and at the end of the day, you do everything but choosing. 
+              This happens a lot when someones wants to watch a movie but has no idea what to watch.")
+             ))
  
                
               )
