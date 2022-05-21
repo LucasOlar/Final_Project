@@ -9,7 +9,7 @@ library(bslib)
 library(thematic)
 library(showtext)
 
-#To reference the other functions file 
+#To referencse the other functions file 
 source(file = "functions_final_project.R", local = T)
 
 #To create spinner for charging graph and table
@@ -172,6 +172,20 @@ best_japan <- df_japan[order(-df_japan$vote_average),]%>%
     Overview = overview,
     Rating = vote_average
   )
+
+#setup df for the graph about budget over years
+
+dfgraph <- na.omit(mdf) %>%
+  select(3,4,12)%>%
+  group_by(genre,year)%>%
+  summarise(budget=sum(budget))
+
+graph1 = dfgraph%>%
+  ggplot(aes(x=year, y=budget, color = genre)) +
+  geom_line()
+
+graph1
+
 
 #setup the bslib theme object for dark/light switch mode
 light <- bs_theme(bootswatch = "cerulean")
@@ -485,6 +499,15 @@ ui <- fluidPage(
                actionBttn("clear_10", "CLEAR", icon = icon("ban"), color = "danger", style = "fill")
                
              )),
+    tabPanel("Budget", icon = icon("$"),
+         sidebarLayout(
+           sidebarPanel = 
+             sliderInput(inputId = "years",
+                         label = "Years",
+                         min = 1980,
+                         max = 2020)
+         )),
+            
     
     tabPanel("Who we are", icon = icon("face"),
              mainPanel(
@@ -1059,12 +1082,19 @@ Mystery = function(q.c){
   
   # Tab 6 --> Data
   
+  
+  
   # Render plotly plot 
   output$plot_data <- renderPlotly({
     plot <- ggplotly(plot_movie(df = df)) %>% layout(height = 600, width = 700)
   })
   
   #tab 7
+  
+  
+  #tab 7 graph 
+  
+  plotOutplu(outputId = graphplot)
   
   # close app
   observeEvent(input$close,{
