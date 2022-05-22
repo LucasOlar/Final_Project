@@ -10,7 +10,7 @@ library(thematic)
 library(showtext)
 
 #To reference the other functions file 
-source(file = "functions_final_project.R", local = T)
+source(file = "functions_final_project.R", local = TRUE)
 
 #To create spinner for charging graph and table
 options(spinner.color = "#0dc5c1", spinner.size = 1.4, spinner.type = 6)
@@ -30,27 +30,24 @@ list_genres <- unlist(strsplit(df$genres, ","))
 list_genres <- list_genres[!duplicated(list_genres)]
 list_genres <- append("All", list_genres)
 
+#creation table pour les categories
 
-# We used this to have the lists of... to be able to manipulate them (not directly) :
-
-  # Show all the possible original languages
-    # list_languages <- df[!duplicated(df$original_language), ]
-    # list_languages = list_languages %>%
-    #   select(original_language)
-    # unique(list_languages$original_language)
-  
-  # Show all the possible countries of production
-    # list_country <- unlist(strsplit(df$production_countries,","))
-    # list_country <- list_country[!duplicated(list_country)]
-    #  print(list_country)
+df_best <- df %>%
+  select(-1,-2,-3,-4,-7,-8,-9,-10,-11,-15) 
 
 
+best_best <- df_best[order(-df_best$vote_average),] %>%
+  select(1,2,5)%>%
+  rename(
+    Title = original_title,
+    Overview = overview,
+    Rating = vote_average
+  )
 
-# #creation table pour les categories
 df_haloween <- df %>%
   select(-1,-2,-3,-4,-7,-8,-9,-10,-11,-15) %>%
   filter(grepl(pattern = "gore", x= keywords)) %>%
-  filter(grepl(pattern = "Horror", x= genres)) #%>%
+  filter(grepl(pattern = "Horror", x= genres)) 
 
 best_haloween <- df_haloween[order(-df_haloween$vote_average),] %>%
   select(1,2,5)%>%
@@ -166,9 +163,9 @@ df_japan<- df %>%
   filter(grepl(pattern = "Japan", x=production_countries))
 
 best_japan <- df_japan[order(-df_japan$vote_average),]%>%
-  select(1,2,5)%>%
+  select(1,2,4,5)%>%
   rename(
-    Title = original_title,
+    Title = title,
     Overview = overview,
     Rating = vote_average
   )
@@ -192,11 +189,11 @@ ui <- fluidPage(
   theme = dark, 
   checkboxInput(inputId = "light_mode", 
                 label = icon("sun")),
-
+  
   # Application logo
   titlePanel(tags$img(src = "MyImage2.png", height = 100, width = 400)),
-
-
+  
+  
   # setup needed to make the app close when button pressed
   useShinyjs(),
   extendShinyjs(text = jscode, functions = c("closeWindow")),
@@ -233,118 +230,118 @@ ui <- fluidPage(
                textOutput("text_7"),
                tags$head(tags$style("#text_7{color: red;font-size: 17px;font-style: bold; text-align: center;}")),
                br()
-               )
-             ),
+             )
+    ),
     tabPanel("Filter",
-      icon = icon("random"),
-      fluid = TRUE,
-      sidebarLayout(
-        position = "right",
-        sidebarPanel(
-          align = "center",
-          h3("MOVIES BASED ON YOUR CRITERIA", align = "center", style = "color:cyan"),
-          br(),
-          actionBttn("compute", "SHOW ME A MOVIE", icon = icon("film"), color = "success", style = "fill"),
-          br(),
-          br(),
-          br(),
-          selectInput("genre_1", "GENRES 1", list_genres, selected = NULL, multiple = FALSE, width = NULL),
-          br(),
-          selectInput("genre_2", "GENRES 2", list_genres, selected = NULL, multiple = FALSE, width = NULL),
-          br(),
-          sliderInput("vote_average", "MINIMUM RATING", min = 0, max = 10, value = 0),
-          br(),
-          dateRangeInput("date", "DATE", end = "2017-02-03", start = "1916-09-04", min = "1916-09-04", max = "2017-02-03",format = "dd-mm-yyyy", startview = "decade"),
-          br(),
-          sliderInput("runtime", "MAXIMUM LENGTH (MINUTES)", min = 0, max = 340, value = 340),
-          br(),
-          selectInput("original_language", "ORIGINAL LANGUAGE",
-            c("All", "Afrikaans" = "af", "Arabic" = "ar", "Catalan" = "cn", "Chinese" = "zh", "Czech" = "cs", "Danish" = "da", "Dutch" = "nl", "English" = "en", "French" = "fr", "German" = "de", "Greek" = "el", "Hebrew" = "he", "Hindi" = "hi", "Hungarian" = "hu", "Icelandic" = "is", "Indonesian" = "id", "Italian" = "it", "Japanese" = "ja", "Korean" = "ko", "Kyrgyz" = "ky", "Norwegian Bokmål" = "nb", "Norwegian" = "no", "Pashto" = "ps", "Persian" = "fa", "Polish" = "pl", "Portuguese" = "pt", "Romanian" = "ro", "Russian" = "ru", "Slovenian" = "sl", "Spanish" = "es", "Swedish" = "sv", "Tamil" = "ta", "Telugu" = "te", "Thai" = "th", "Turkish" = "tr", "Vietnamese" = "vi"),
-            selected = NULL, multiple = FALSE, width = NULL
-          ),
-          br(),
-          selectInput("spoken_languages", "DUBBED LANGUAGE", list_spoken_languages, selected = NULL, multiple = FALSE, width = NULL),
-          br(),
-          actionBttn("clear_1", "CLEAR", icon = icon("ban"), color = "danger", style = "fill")
-        ),
-        mainPanel(
-          br(),
-          textOutput("recommend_text"),
-          tags$head(tags$style("#recommend_text{color: red;font-size: 17px;font-style: bold; text-align: center;}")),
-          br(),
-          textOutput("text_8"),
-          tags$head(tags$style("#text_8{color: orange;font-size: 37px;font-style: bold; text-align: center;}")),
-          br(),
-          textOutput("text_9"),
-          tags$head(tags$style("#text_9{color: orange;font-size: 25px;font-style: bold; text-align: center;}")),
-          br(),
-          br(),
-          textOutput("text_10"),
-          tags$head(tags$style("#text_10{font-size: 20px; text-align: left;}")),
-          br(),
-          textOutput("text_11"),
-          tags$head(tags$style("#text_11{color: red;font-size: 17px;font-style: bold; text-align: center;}")),
-          br(),
-          textOutput("text_12"),
-          tags$head(tags$style("#text_12{color: red;font-size: 17px;font-style: bold; text-align: center;}")),
-          br(),
-          textOutput("text_13"),
-          tags$head(tags$style("#text_13{color: red;font-size: 17px;font-style: bold; text-align: center;}")),
-          br(),
-          textOutput("text_14"),
-          tags$head(tags$style("#text_14{color: red;font-size: 17px;font-style: bold; text-align: center;}"))
-          )
-      )
+             icon = icon("random"),
+             fluid = TRUE,
+             sidebarLayout(
+               position = "right",
+               sidebarPanel(
+                 align = "center",
+                 h3("MOVIES BASED ON YOUR CRITERIA", align = "center", style = "color:cyan"),
+                 br(),
+                 actionBttn("compute", "SHOW ME A MOVIE", icon = icon("film"), color = "success", style = "fill"),
+                 br(),
+                 br(),
+                 br(),
+                 selectInput("genre_1", "GENRES 1", list_genres, selected = NULL, multiple = FALSE, width = NULL),
+                 br(),
+                 selectInput("genre_2", "GENRES 2", list_genres, selected = NULL, multiple = FALSE, width = NULL),
+                 br(),
+                 sliderInput("vote_average", "MINIMUM RATING", min = 0, max = 10, value = 0),
+                 br(),
+                 dateRangeInput("date", "DATE", end = "2017-02-03", start = "1916-09-04", min = "1916-09-04", max = "2017-02-03",format = "dd-mm-yyyy", startview = "decade"),
+                 br(),
+                 sliderInput("runtime", "MAXIMUM LENGTH (MINUTES)", min = 0, max = 340, value = 340),
+                 br(),
+                 selectInput("original_language", "ORIGINAL LANGUAGE",
+                             c("All", "Afrikaans" = "af", "Arabic" = "ar", "Catalan" = "cn", "Chinese" = "zh", "Czech" = "cs", "Danish" = "da", "Dutch" = "nl", "English" = "en", "French" = "fr", "German" = "de", "Greek" = "el", "Hebrew" = "he", "Hindi" = "hi", "Hungarian" = "hu", "Icelandic" = "is", "Indonesian" = "id", "Italian" = "it", "Japanese" = "ja", "Korean" = "ko", "Kyrgyz" = "ky", "Norwegian Bokmål" = "nb", "Norwegian" = "no", "Pashto" = "ps", "Persian" = "fa", "Polish" = "pl", "Portuguese" = "pt", "Romanian" = "ro", "Russian" = "ru", "Slovenian" = "sl", "Spanish" = "es", "Swedish" = "sv", "Tamil" = "ta", "Telugu" = "te", "Thai" = "th", "Turkish" = "tr", "Vietnamese" = "vi"),
+                             selected = NULL, multiple = FALSE, width = NULL
+                 ),
+                 br(),
+                 selectInput("spoken_languages", "DUBBED LANGUAGE", list_spoken_languages, selected = NULL, multiple = FALSE, width = NULL),
+                 br(),
+                 actionBttn("clear_1", "CLEAR", icon = icon("ban"), color = "danger", style = "fill")
+               ),
+               mainPanel(
+                 br(),
+                 textOutput("recommend_text"),
+                 tags$head(tags$style("#recommend_text{color: red;font-size: 17px;font-style: bold; text-align: center;}")),
+                 br(),
+                 textOutput("text_8"),
+                 tags$head(tags$style("#text_8{color: orange;font-size: 37px;font-style: bold; text-align: center;}")),
+                 br(),
+                 textOutput("text_9"),
+                 tags$head(tags$style("#text_9{color: orange;font-size: 25px;font-style: bold; text-align: center;}")),
+                 br(),
+                 br(),
+                 textOutput("text_10"),
+                 tags$head(tags$style("#text_10{font-size: 20px; text-align: left;}")),
+                 br(),
+                 textOutput("text_11"),
+                 tags$head(tags$style("#text_11{color: red;font-size: 17px;font-style: bold; text-align: center;}")),
+                 br(),
+                 textOutput("text_12"),
+                 tags$head(tags$style("#text_12{color: red;font-size: 17px;font-style: bold; text-align: center;}")),
+                 br(),
+                 textOutput("text_13"),
+                 tags$head(tags$style("#text_13{color: red;font-size: 17px;font-style: bold; text-align: center;}")),
+                 br(),
+                 textOutput("text_14"),
+                 tags$head(tags$style("#text_14{color: red;font-size: 17px;font-style: bold; text-align: center;}"))
+               )
+             )
     ),
     tabPanel("Search",
-      icon = icon("search"),
-      fluid = TRUE,
-      sidebarLayout(
-        position = "right", 
-        sidebarPanel(
-          align = "center",
-          h3("MOVIE SEARCH", align = "center", style = "color:cyan"),
-          br(),
-          actionBttn("compute_2", "SHOW ME THE MOVIES", icon = icon("film"), color = "success", style = "fill"),
-          br(),
-          br(),
-          h4("OFFICIAL TITLE"),
-          textInput(inputId = "title", label = "", value = ""),
-          br(),
-          textInput(inputId = "key_words_1", label = "KEY WORDS 1", value = ""),
-          br(),
-          textInput(inputId = "key_words_2", label = "KEY WORD 2", value = ""),
-          br(),
-          textInput(inputId = "key_words_3", label = "KEY WORD 3", value = ""),
-          br(),
-          sliderInput("popularity", "MINIMUM POPULARITY", min = 0, max = 150, value = 0),
-          br(),
-          selectInput("country", "PRODUCTION COUNTRY", list(
-            "All",
-            "Africa" = c("Algeria", "Angola", "Cameroon", "Egypt", "Kenya", "Libyan Arab Jamahiriya", "Morocco", "Nigeria", "South Africa", "Tunisia"),
-            "America" = c("Argentina", "Aruba", "Bahamas", "Bolivia", "Brazil", "Canada", "Chile", "Colombia", "Dominica", "Dominican Republic", "Ecuador", "Guadaloupe", "Guyana", "Jamaica", "Mexico", "Panama", "Peru", "United States of America"),
-            "Asia-Oceania" = c("Afghanistan", "Australia", "Bhutan", "Cambodia", "China", "Fiji", "Hong Kong", "India", "Indonesia", "Iran", "Israel", "Japan", "Jordan", "Kazakhstan", "Kyrgyz Republic", "Lebanon", "Malaysia", "New Zealand", "Pakistan", "Philippines", "Singapore", "South Korea", "Taiwan", "Thailand", "Turkey", "United Arab Emirates"),
-            "Europe" = c("Austria", "Belgium", "Bosnia and Herzegovina", "Bulgaria", "Cyprus", "Czech Republic", "Denmark", "Finland", "France", "Germany", "Greece", "Hungary", "Iceland", "Ireland", "Italy", "Lithuania", "Luxembourg", "Malta", "Monaco", "Netherlands", "Norway", "Poland", "Portugal", "Romania", "Russia", "Serbia", "Serbia and Montenegro", "Slovakia", "Slovenia", "Spain", "Sweden", "Switzerland", "Ukraine", "United Kingdom")
-          ), selected = NULL, multiple = FALSE, width = NULL),
-          br(),
-          actionBttn("clear_2", "CLEAR", icon = icon("ban"), color = "danger", style = "fill")
-        ),
-        mainPanel(
-          br(),
-          textOutput("search_text"),
-          br(),
-          tags$head(tags$style("#search_text{color: red;font-size: 17px;font-style: bold; text-align: center;}")),
-          withSpinner(tableOutput("search"))
-          )
-      )
+             icon = icon("search"),
+             fluid = TRUE,
+             sidebarLayout(
+               position = "right", 
+               sidebarPanel(
+                 align = "center",
+                 h3("MOVIE SEARCH", align = "center", style = "color:cyan"),
+                 br(),
+                 actionBttn("compute_2", "SHOW ME THE MOVIES", icon = icon("film"), color = "success", style = "fill"),
+                 br(),
+                 br(),
+                 h4("OFFICIAL TITLE"),
+                 textInput(inputId = "title", label = "", value = ""),
+                 br(),
+                 textInput(inputId = "key_words_1", label = "KEY WORDS 1", value = ""),
+                 br(),
+                 textInput(inputId = "key_words_2", label = "KEY WORD 2", value = ""),
+                 br(),
+                 textInput(inputId = "key_words_3", label = "KEY WORD 3", value = ""),
+                 br(),
+                 sliderInput("popularity", "MINIMUM POPULARITY", min = 0, max = 150, value = 0),
+                 br(),
+                 selectInput("country", "PRODUCTION COUNTRY", list(
+                   "All",
+                   "Africa" = c("Algeria", "Angola", "Cameroon", "Egypt", "Kenya", "Libyan Arab Jamahiriya", "Morocco", "Nigeria", "South Africa", "Tunisia"),
+                   "America" = c("Argentina", "Aruba", "Bahamas", "Bolivia", "Brazil", "Canada", "Chile", "Colombia", "Dominica", "Dominican Republic", "Ecuador", "Guadaloupe", "Guyana", "Jamaica", "Mexico", "Panama", "Peru", "United States of America"),
+                   "Asia-Oceania" = c("Afghanistan", "Australia", "Bhutan", "Cambodia", "China", "Fiji", "Hong Kong", "India", "Indonesia", "Iran", "Israel", "Japan", "Jordan", "Kazakhstan", "Kyrgyz Republic", "Lebanon", "Malaysia", "New Zealand", "Pakistan", "Philippines", "Singapore", "South Korea", "Taiwan", "Thailand", "Turkey", "United Arab Emirates"),
+                   "Europe" = c("Austria", "Belgium", "Bosnia and Herzegovina", "Bulgaria", "Cyprus", "Czech Republic", "Denmark", "Finland", "France", "Germany", "Greece", "Hungary", "Iceland", "Ireland", "Italy", "Lithuania", "Luxembourg", "Malta", "Monaco", "Netherlands", "Norway", "Poland", "Portugal", "Romania", "Russia", "Serbia", "Serbia and Montenegro", "Slovakia", "Slovenia", "Spain", "Sweden", "Switzerland", "Ukraine", "United Kingdom")
+                 ), selected = NULL, multiple = FALSE, width = NULL),
+                 br(),
+                 actionBttn("clear_2", "CLEAR", icon = icon("ban"), color = "danger", style = "fill")
+               ),
+               mainPanel(
+                 br(),
+                 textOutput("search_text"),
+                 br(),
+                 tags$head(tags$style("#search_text{color: red;font-size: 17px;font-style: bold; text-align: center;}")),
+                 withSpinner(tableOutput("search"))
+               )
+             )
     ),
     tabPanel("Categories", icon = icon("book"),
              mainPanel(
-               selectInput("categories", "What do you want to watch tonight?", c("Haloween", "Valentine's day", "Christman with the family", "Alien Invasion", "For Kids","Marvel","DC Comics", "Gangster", "Japan")),
+               selectInput("categories", "What do you want to watch tonight?", c("La crème de la crème", "Haloween", "Valentine's day", "Christman with the family", "Alien Invasion", "For Kids","Marvel","DC Comics", "Gangster", "Japan")),
                tableOutput("movietable1")
-               )
-             ),
-               
+             )
+    ),
+    
     tabPanel("PopCorn", icon = icon("fire"),
              mainPanel(
                style = "font-family: 'Comic Sans MS';",
@@ -371,29 +368,6 @@ ui <- fluidPage(
                p(""),
                p("")
              )),
-    tabPanel("Info", icon = icon("info"),
-             mainPanel(
-               align = "center",
-               br(),
-               h3("Interactive plot of : BUDGET vs REVENUE", style = "color:cyan"),
-               br(),
-               withSpinner(plotlyOutput("plot_data")),
-               br(),
-               br(),
-               br(),
-               br(),
-               br(), #Without these the text goes behind the graph
-               br(),
-               br(),
-               br(),
-               h3("Did that spectacular graph bore you ?", style = "color:lime"),
-               br(),
-               actionBttn("close", "If so, click here !! (goodbye)", color = "success", style = "fill"),
-               br(),
-               br(),
-               br()
-             )),
-
     
     tabPanel("Quizz", icon = icon("quiz"),
              mainPanel(
@@ -405,19 +379,19 @@ ui <- fluidPage(
                h2("Adventure"),
                selectInput("UserInput1", "Are you an adventurous person ?", choices = c("", "Yes, Indiana Jones is my second name", "No, I prefer my comfort")),
                h3(textOutput("Result1")),
-            
+               
                h2("Animation"),
                selectInput("UserInput2", "Are you a Pixar or Disney fan ?", choices = c("", "Yes, I even cried watching CARS", "No, it's for kids")),
                h3(textOutput("Result2")),
-
+               
                h2("Comedy"),
                selectInput("UserInput3", "Do you want to laugh ?", choices = c("", "Yes, I need to right now", "No, I prefer to live a life full of seriousness")),
                h3(textOutput("Result3")),
-                
+               
                h2("Crime"),
                selectInput("UserInput4", "Are you the next Sherlock Holmes ?", choices = c("", "Yes, I am the best detective of the world", "No, I do not to be involved in a crime scene")),
                h3(textOutput("Result4")),
-
+               
                h2("Documentary"),
                selectInput("UserInput5", "Have you always been curious ?", choices = c("", "Yes, the only thing I know is that I know nothing", "No, I hate learning new stuff")),
                h3(textOutput("Result5")),
@@ -497,19 +471,19 @@ ui <- fluidPage(
               You have plenty things to choose from, and at the end of the day, you do everything but choosing. 
               This happens a lot when someones wants to watch a movie but has no idea what to watch.")
              ))
- 
-               
-              )
+    
+    
   )
+)
 
 
 #---------------------------------------------------------------------------------------------------------------------------------------
 
 # Define server logic required to draw a histogram
 server <- function(input, output, session){
-
   
-
+  
+  
   
   
   #personality questoin ???
@@ -522,10 +496,10 @@ server <- function(input, output, session){
       QuizResult = "" 
     }
     return(QuizResult)
-    }
+  }
   
-
-
+  
+  
   
   Adventure = function(q.c){
     if (q.c == "Yes, Indiana Jones is my second name"){
@@ -537,7 +511,7 @@ server <- function(input, output, session){
     }
     return(QuizResult1)
   }
-
+  
   Animation = function(q.c){
     if (q.c == "Yes, I even cried watching CARS"){
       QuizResult2 ="Have fun watching PENGUINS OF MADAGASCAR"
@@ -548,18 +522,18 @@ server <- function(input, output, session){
     }
     return(QuizResult2)
   }
-
- Comedy = function(q.c){
-  if (q.c == "Yes, I need to right now"){
-    QuizResult3 ="Have fun with BRUCE ALMIGHTY"
-  } else if (q.c == "No, I prefer to live a life full of seriousness"){
-    QuizResult3 = "Keep scrolling down"
-  } else {
-    QuizResult3 = ""
+  
+  Comedy = function(q.c){
+    if (q.c == "Yes, I need to right now"){
+      QuizResult3 ="Have fun with BRUCE ALMIGHTY"
+    } else if (q.c == "No, I prefer to live a life full of seriousness"){
+      QuizResult3 = "Keep scrolling down"
+    } else {
+      QuizResult3 = ""
+    }
+    return(QuizResult3)
   }
-  return(QuizResult3)
-}
-
+  
   Crime = function(q.c){
     if (q.c == "Yes, I am the best detective of the world"){
       QuizResult4 ="Be focused on all the clues THE TRANSPORTER gives you"
@@ -570,7 +544,7 @@ server <- function(input, output, session){
     }
     return(QuizResult4)
   }
-
+  
   Documentary = function(q.c){
     if (q.c == "Yes, the only thing I know is that I know nothing"){
       QuizResult5 ="Learn more about a war through CENSORED VOICES"
@@ -581,7 +555,7 @@ server <- function(input, output, session){
     }
     return(QuizResult5)
   }
-
+  
   
   Drama = function(q.c){
     if (q.c == "Yes, unfortunately"){
@@ -619,7 +593,7 @@ server <- function(input, output, session){
   }
   
   
- Foreign = function(q.c){
+  Foreign = function(q.c){
     if (q.c == "Yes, let's learn about an other culture"){
       QuizResult9 =" Next stop Bollywood, but for GANDHI; MY FATHER"
     } else if (q.c == "No, let's stay here"){
@@ -653,8 +627,8 @@ server <- function(input, output, session){
     }
     return(QuizResult11)
   }
-
-
+  
+  
   Horror = function(q.c){
     if (q.c == "Yes, the uncanny is something I long for"){
       QuizResult12 ="Be prepared not to sleep tonight thanks to RESIDENT EVIL : EXTINCTION"
@@ -665,8 +639,8 @@ server <- function(input, output, session){
     }
     return(QuizResult12)
   }
-
-
+  
+  
   Music = function(q.c){
     if (q.c == "Yes, I love dancing and singing in the rain"){
       QuizResult13 ="Let's dance to the beat of STEP UP"
@@ -677,22 +651,22 @@ server <- function(input, output, session){
     }
     return(QuizResult13)
   }
-
-
-
-Mystery = function(q.c){
-  if (q.c == "Yes, all my friends call me Scooby-Doo or Detective Conan"){
-    QuizResult14 ="Then go clean the city full of monster in SCOOBY-DOO 2 : MONSTERS UNLEASHED"
-  } else if (q.c == "No, it is not my job"){
-    QuizResult14 = "Keep scrolling down"
-  } else {
-    QuizResult14 = ""
+  
+  
+  
+  Mystery = function(q.c){
+    if (q.c == "Yes, all my friends call me Scooby-Doo or Detective Conan"){
+      QuizResult14 ="Then go clean the city full of monster in SCOOBY-DOO 2 : MONSTERS UNLEASHED"
+    } else if (q.c == "No, it is not my job"){
+      QuizResult14 = "Keep scrolling down"
+    } else {
+      QuizResult14 = ""
+    }
+    return(QuizResult14)
   }
-  return(QuizResult14)
-}
-
-
-
+  
+  
+  
   Romance = function(q.c){
     if (q.c == "Yes, let's cry about some beautiful love story"){
       QuizResult15 ="Prepare for a cosy evening with LOVE ACTUALLY"
@@ -703,9 +677,9 @@ Mystery = function(q.c){
     }
     return(QuizResult15)
   }
-
-
-
+  
+  
+  
   Science_Fiction = function(q.c){
     if (q.c == "Yes, there is, we are not alone"){
       QuizResult16 ="Understand the Area 51 thanks to SUPER 8"
@@ -716,9 +690,9 @@ Mystery = function(q.c){
     }
     return(QuizResult16)
   }
-
-
-
+  
+  
+  
   Thriller = function(q.c){
     if (q.c == "Yes, fate is only a road we follow blindly"){
       QuizResult17 ="Follow THE DA VINCI CODE to solve some mysteries of the past"
@@ -729,9 +703,9 @@ Mystery = function(q.c){
     }
     return(QuizResult17)
   }
-
-
-
+  
+  
+  
   TV_Movie = function(q.c){
     if (q.c == "Yes, some movies are not worth my money"){
       QuizResult18 ="Sing along in HIGH SCHOOL MUSICAL"
@@ -742,9 +716,9 @@ Mystery = function(q.c){
     }
     return(QuizResult18)
   }
-
-
-
+  
+  
+  
   War = function(q.c){
     if (q.c == "Yes, war is hell"){
       QuizResult19 ="Go back in time in Sparta with 300"
@@ -755,7 +729,7 @@ Mystery = function(q.c){
     }
     return(QuizResult19)
   }
-
+  
   
   
   Western = function(q.c){
@@ -768,8 +742,8 @@ Mystery = function(q.c){
     }
     return(QuizResult20)
   }
-
-
+  
+  
   
   
   output$Result <- renderText({Personality(input$UserInput)})
@@ -829,10 +803,10 @@ Mystery = function(q.c){
       if (isTRUE(input$light_mode)) light else dark 
     )
   })
-
+  
   
   # Notification Explanation app
-    shinyalert(
+  shinyalert(
     title = "Welcome To PeliRoster",
     text = "This app was made to help you chose a movie to watch ! \n \n So good luck, have fun"
   )
@@ -842,13 +816,13 @@ Mystery = function(q.c){
   # Tab 1 --> Daily 
   
   # Choose movie based on date
-    date <- as.POSIXct(Sys.Date(), format = "%y/%m/%d")
-    numeric_date <- as.numeric(date)
-    
-    daily_movie <- daily_find(
-      date = numeric_date,
-      df = df
-    )
+  date <- as.POSIXct(Sys.Date(), format = "%y/%m/%d")
+  numeric_date <- as.numeric(date)
+  
+  daily_movie <- daily_find(
+    date = numeric_date,
+    df = df
+  )
   
   #Title of daily table
   output$daily_text <- renderText({
@@ -872,11 +846,11 @@ Mystery = function(q.c){
   output$text_4 <- renderText({
     paste0("Rating : ", daily_movie$vote_average, "/10")
   })
-
+  
   output$text_5 <- renderText({
     paste0("Released on the ", format(daily_movie$release_date, "%d-%m-%Y"))
   })
-    
+  
   output$text_6 <- renderText({
     paste0("Movie genres : ", daily_movie$genres)
   })
@@ -908,7 +882,7 @@ Mystery = function(q.c){
       original_language_input = input$original_language,
       spoken_languages_input = input$spoken_languages
     )
-
+    
     if (nrow(df_new_recommend) == 0) {
       shinyalert(
         title = "No movies found",
@@ -917,7 +891,7 @@ Mystery = function(q.c){
     }
     return(df_new_recommend)
   })
-
+  
   # Prints out table (temporary)
   
   data_movie_recommendation <- eventReactive(input$compute, {
@@ -940,7 +914,7 @@ Mystery = function(q.c){
   output$recommend_text <- renderText({
     paste0("SELECTED FROM ", nrow(data_recommended()), " POSSIBILITIES")
   })
-
+  
   #Text 
   output$text_8 <- renderText({
     data_movie_recommendation()$title
@@ -973,13 +947,13 @@ Mystery = function(q.c){
       ""
     }
   })
-
+  
   
   
   
   
   # Tab 3 --> Search
-
+  
   # Use data_search function from functions_final_project.R to filter search
   data_searched <- eventReactive(input$compute_2, {
     df_new_search <- data_search(
@@ -991,7 +965,7 @@ Mystery = function(q.c){
       production_country_input = input$country,
       popularity_input = input$popularity
     )
-  
+    
     #If empty data found from criteria, then display message and wipe criteria
     if (nrow(df_new_search) == 0) {
       shinyalert(
@@ -1002,7 +976,7 @@ Mystery = function(q.c){
     
     return(df_new_search)
   })
-
+  
   # Prints out table
   output$search <- renderTable({
     data_searched()
@@ -1022,16 +996,17 @@ Mystery = function(q.c){
     updateSelectInput(session, "country", selected = "All")
     updateSliderInput(session, "popularity", value = 0)
   })
-
   
   
   
   
   
- # Tab 4 --> Categories
+  
+  # Tab 4 --> Categories
   
   datasetInput <- reactive({
     switch(input$categories,
+           "La crème de la crème" = best_best,
            "Haloween" = best_haloween,
            "Valentine's day"= best_love,  
            "Christman with the family"= best_christmas,
@@ -1049,13 +1024,13 @@ Mystery = function(q.c){
   
   
   
- # Tab 5 --> Popcorn
-    # No code/data needed for tab 5
+  # Tab 5 --> Popcorn
+  # No code/data needed for tab 5
   
   
   
   
-
+  
   
   # Tab 6 --> Data
   
@@ -1078,5 +1053,3 @@ Mystery = function(q.c){
 
 # Run the application
 shinyApp(ui = ui, server = server)
-
-#change
