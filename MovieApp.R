@@ -209,7 +209,7 @@ ui <- fluidPage(
              mainPanel(
                br(),
                textOutput("daily_text"),
-               tags$head(tags$style("#daily_text{color: cyan;font-size: 17px;font-style: bold; text-align: center;}")),
+               tags$head(tags$style("#daily_text{color: red;font-size: 17px;font-style: bold; text-align: center;}")),
                br(),
                textOutput("text_1"),
                tags$head(tags$style("#text_1{color: orange;font-size: 37px;font-style: bold; text-align: center;}")),
@@ -222,16 +222,16 @@ ui <- fluidPage(
                tags$head(tags$style("#text_3{font-size: 20px; text-align: left;}")),
                br(),
                textOutput("text_4"),
-               tags$head(tags$style("#text_4{color: cyan;font-size: 17px;font-style: bold; text-align: center;}")),
+               tags$head(tags$style("#text_4{color: red;font-size: 17px;font-style: bold; text-align: center;}")),
                br(),
                textOutput("text_5"),
-               tags$head(tags$style("#text_5{color: cyan;font-size: 17px;font-style: bold; text-align: center;}")),
+               tags$head(tags$style("#text_5{color: red;font-size: 17px;font-style: bold; text-align: center;}")),
                br(),
                textOutput("text_6"),
-               tags$head(tags$style("#text_6{color: cyan;font-size: 17px;font-style: bold; text-align: center;}")),
+               tags$head(tags$style("#text_6{color: red;font-size: 17px;font-style: bold; text-align: center;}")),
                br(),
                textOutput("text_7"),
-               tags$head(tags$style("#text_7{color: cyan;font-size: 17px;font-style: bold; text-align: center;}")),
+               tags$head(tags$style("#text_7{color: red;font-size: 17px;font-style: bold; text-align: center;}")),
                br()
                )
              ),
@@ -270,7 +270,7 @@ ui <- fluidPage(
         mainPanel(
           br(),
           textOutput("recommend_text"),
-          tags$head(tags$style("#recommend_text{color: cyan;font-size: 17px;font-style: bold; text-align: center;}")),
+          tags$head(tags$style("#recommend_text{color: red;font-size: 17px;font-style: bold; text-align: center;}")),
           br(),
           textOutput("text_8"),
           tags$head(tags$style("#text_8{color: orange;font-size: 37px;font-style: bold; text-align: center;}")),
@@ -283,16 +283,16 @@ ui <- fluidPage(
           tags$head(tags$style("#text_10{font-size: 20px; text-align: left;}")),
           br(),
           textOutput("text_11"),
-          tags$head(tags$style("#text_11{color: cyan;font-size: 17px;font-style: bold; text-align: center;}")),
+          tags$head(tags$style("#text_11{color: red;font-size: 17px;font-style: bold; text-align: center;}")),
           br(),
           textOutput("text_12"),
-          tags$head(tags$style("#text_12{color: cyan;font-size: 17px;font-style: bold; text-align: center;}")),
+          tags$head(tags$style("#text_12{color: red;font-size: 17px;font-style: bold; text-align: center;}")),
           br(),
           textOutput("text_13"),
-          tags$head(tags$style("#text_13{color: cyan;font-size: 17px;font-style: bold; text-align: center;}")),
+          tags$head(tags$style("#text_13{color: red;font-size: 17px;font-style: bold; text-align: center;}")),
           br(),
           textOutput("text_14"),
-          tags$head(tags$style("#text_14{color: cyan;font-size: 17px;font-style: bold; text-align: center;}"))
+          tags$head(tags$style("#text_14{color: red;font-size: 17px;font-style: bold; text-align: center;}"))
           )
       )
     ),
@@ -333,7 +333,7 @@ ui <- fluidPage(
           br(),
           textOutput("search_text"),
           br(),
-          tags$head(tags$style("#search_text{color: cyan;font-size: 17px;font-style: bold; text-align: center;}")),
+          tags$head(tags$style("#search_text{color: red;font-size: 17px;font-style: bold; text-align: center;}")),
           withSpinner(tableOutput("search"))
           )
       )
@@ -401,7 +401,7 @@ ui <- fluidPage(
                h2("Personality"),
                selectInput("UserInput", "Do you like movies ?", choices = c("", "YES, I LOVE IT", "nah, lame")),
                h3(textOutput("Result")),
-           
+               
                h2("Adventure"),
                selectInput("UserInput1", "Are you an adventurous person ?", choices = c("", "Yes, Indiana Jones is my second name", "No, I prefer my comfort")),
                h3(textOutput("Result1")),
