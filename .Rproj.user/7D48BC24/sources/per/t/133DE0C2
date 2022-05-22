@@ -1,12 +1,12 @@
 {
-    "id": "3E8A7373",
-    "path": "~/Data Science/Final_Project/MovieApp.R",
-    "project_path": "MovieApp.R",
+    "id": "133DE0C2",
+    "path": "~/Data Science/Final_Project/functions_final_project.R",
+    "project_path": "functions_final_project.R",
     "type": "r_source",
-    "hash": "449642879",
+    "hash": "1208989696",
     "contents": "",
     "dirty": false,
-    "created": 1652975457871.0,
+    "created": 1653249349238.0,
     "source_on_save": false,
     "relative_order": 2,
     "properties": {
@@ -14,11 +14,11 @@
         "Source": "Source"
     },
     "folds": "",
-    "lastKnownWriteTime": 1652972810,
+    "lastKnownWriteTime": 1652975173,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1652972810,
+    "last_content_update": 1652975173,
     "read_only": false,
     "read_only_alternatives": []
 }
