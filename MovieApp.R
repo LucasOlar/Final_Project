@@ -1040,7 +1040,7 @@ Mystery = function(q.c){
            "Marvel" = best_marvel,
            "DC Comics" = best_dc,
            "Gangster" = best_gangster,
-           "Japoan" = best_japan)
+           "Japan" = best_japan)
   })
   
   output$movietable1 <- renderTable(datasetInput())
