@@ -37,7 +37,7 @@ list_genres <- append("All", list_genres)
       select(-1,-2,-3,-4,-7,-8,-9,-10,-11,-15) 
     
     best_best <- df_best[order(-df_best$vote_average),] %>%
-      filter(row_number() < 41) %>%
+      filter(row_number() < 21) %>%
       select(1,2,5)%>%
       rename(
         Title = original_title,
@@ -52,7 +52,7 @@ list_genres <- append("All", list_genres)
     
     best_haloween <- df_haloween[order(-df_haloween$vote_average),] %>%
       select(1,2,5)%>%
-      filter(row_number() < 41) %>%
+      filter(row_number() < 21) %>%
       rename(
         Title = original_title,
         Overview = overview,
@@ -66,7 +66,7 @@ list_genres <- append("All", list_genres)
       filter(grepl(pattern = "Romance", x= genres))
     
     best_love <- df_love[order(-df_love$vote_average),]%>%
-      filter(row_number() < 41) %>%
+      filter(row_number() < 21) %>%
       select(1,2,5)%>%
       rename(
         Title = original_title,
@@ -81,7 +81,7 @@ list_genres <- append("All", list_genres)
       filter(grepl(pattern = "Family", x= genres))
     
     best_christmas <- df_christmas[order(-df_christmas$vote_average),]%>%
-      filter(row_number() < 41) %>%
+      filter(row_number() < 21) %>%
       select(1,2,5)%>%
       rename(
         Title = original_title,
@@ -96,7 +96,7 @@ list_genres <- append("All", list_genres)
       filter(grepl(pattern = "Science Fiction", x= genres))
     
     best_alien <- df_alien[order(-df_alien$vote_average),]%>%
-      filter(row_number() < 41) %>%
+      filter(row_number() < 21) %>%
       select(1,2,5)%>%
       rename(
         Title = original_title,
@@ -111,7 +111,7 @@ list_genres <- append("All", list_genres)
       filter(grepl(pattern = "English", x = spoken_languages))##marche pas
     
     best_kids <- df_kids[order(-df_kids$vote_average),]%>%
-      filter(row_number() < 41) %>%
+      filter(row_number() < 21) %>%
       select(1,2,5)%>%
       rename(
         Title = original_title,
@@ -125,7 +125,7 @@ list_genres <- append("All", list_genres)
       filter(grepl(pattern = "marvel", x= keywords))
     
     best_marvel <- df_marvel[order(-df_marvel$vote_average),]%>%
-      filter(row_number() < 41) %>%
+      filter(row_number() < 21) %>%
       select(1,2,5)%>%
       rename(
         Title = original_title,
@@ -139,7 +139,7 @@ list_genres <- append("All", list_genres)
       filter(grepl(pattern = "dc comics", x= keywords))
     
     best_dc <- df_dc[order(-df_dc$vote_average),]%>%
-      filter(row_number() < 41) %>%
+      filter(row_number() < 21) %>%
       select(1,2,5)%>%
       rename(
         Title = original_title,
@@ -154,7 +154,7 @@ list_genres <- append("All", list_genres)
       filter(grepl(pattern = "Crime", x= genres))
     
     best_gangster <- df_gangster[order(-df_gangster$vote_average),]%>%
-      filter(row_number() < 41) %>%
+      filter(row_number() < 21) %>%
       select(1,2,5)%>%
       rename(
         Title = original_title,
@@ -168,7 +168,7 @@ list_genres <- append("All", list_genres)
       filter(grepl(pattern = "Japan", x=production_countries))
     
     best_japan <- df_japan[order(-df_japan$vote_average),]%>%
-      filter(row_number() < 41) %>%
+      filter(row_number() < 21) %>%
       select(4,2,5)%>%
       rename(
         Title = title,
@@ -466,7 +466,9 @@ ui <- fluidPage(
                selectInput("UserInput20", "The road to Gold...", choices = c("", "Yes, let's find this yellow metal", "No, there are already populations there")),
                h3(textOutput("Result20")),
                
-               actionBttn("clear_10", "CLEAR", icon = icon("ban"), color = "danger", style = "fill")
+               actionBttn("clear_10", "CLEAR", icon = icon("ban"), color = "danger", style = "fill"),
+               br(),
+               br(),
                
              )),
     
@@ -478,12 +480,11 @@ ui <- fluidPage(
                h3(" is an App created by :", style = "color:orange"),
                strong(h2("LUMARA PRODUCTIONS", style = "color:cyan",)),
                br(),
-               h4("Lumara Productions is a company focused in the entertaining industry, created by three students of the Geneva School of Economics and Management. The founders are Lucas, Matteo and Raphaël.
-               With years of experience in the showbusiness, they listened to one of the major issue people were facing. 
-              Due to the current society and the evolution of technology, one finds himself with too much choices or information available in all domains nowadays. 
-              As the saying goes : Too much information kills the information. 
-              You have plenty things to choose from, and at the end of the day, you do everything but choosing. 
-              This happens a lot when someones wants to watch a movie but has no idea what to watch.")
+               h4("Lumara Productions is a company focused on the entertaining industry, created by three students of the Geneva School of Economics and Management. The founders are Lucas, Matteo and Raphaël.
+               With years of experience in showbusiness, they listened to one of the major issues people were facing."),
+               h4("Due to the current society and the evolution of technology, one finds there are too many choices in all domains. This happens a lot when someone wants to watch a movie but has no idea what they want to watch."),
+               h4("As the saying goes -Less is More- "),
+               h4(" We spend our days making many hard choices, so why spend your time searching rather than letting PeliRoster choose for you.")
              ))
   )
 )
