@@ -472,6 +472,29 @@ ui <- fluidPage(
                
              )),
     
+    tabPanel("Info", icon = icon("info"),
+             mainPanel(
+               align = "center",
+               br(),
+               h3("Interactive plot of : BUDGET vs REVENUE", style = "color:cyan"),
+               br(),
+               withSpinner(plotlyOutput("plot_data")),
+               br(),
+               br(),
+               br(),
+               br(),
+               br(), #Without these the text goes behind the graph
+               br(),
+               br(),
+               br(),
+               h3("Did that spectacular graph bore you ?", style = "color:lime"),
+               br(),
+               actionBttn("close", "If so, click here !! (goodbye)", color = "success", style = "fill"),
+               br(),
+               br(),
+               br()
+             )),
+    
     tabPanel("Creators", icon = icon("user"),
              mainPanel(
                align = "center",

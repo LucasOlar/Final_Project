@@ -3,7 +3,7 @@
     "path": "~/Data Science/Final_Project/MovieApp.R",
     "project_path": "MovieApp.R",
     "type": "r_source",
-    "hash": "1279032216",
+    "hash": "2098738582",
     "contents": "",
     "dirty": false,
     "created": 1652975457871.0,
@@ -12,15 +12,15 @@
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "171,16",
-        "scrollLine": "148"
+        "cursorPosition": "470,20",
+        "scrollLine": "456"
     },
     "folds": "",
-    "lastKnownWriteTime": 1653252620,
+    "lastKnownWriteTime": 1653434662,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1653252620601,
+    "last_content_update": 1653434662870,
     "read_only": false,
     "read_only_alternatives": []
 }
