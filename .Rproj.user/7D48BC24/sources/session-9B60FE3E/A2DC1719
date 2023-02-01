@@ -1,26 +1,26 @@
 {
-    "id": "12C5DAEB",
-    "path": "~/Data Science/Final_Project/MovieApp.R",
-    "project_path": "MovieApp.R",
+    "id": "A2DC1719",
+    "path": "~/Masters Coding/Forecasting Tutorial.R",
+    "project_path": null,
     "type": "r_source",
-    "hash": "3750557952",
+    "hash": "0",
     "contents": "",
     "dirty": false,
-    "created": 1653249346277.0,
+    "created": 1663669570586.0,
     "source_on_save": false,
     "relative_order": 1,
     "properties": {
         "source_window_id": "",
         "Source": "Source",
-        "cursorPosition": "45,7",
-        "scrollLine": "0"
+        "cursorPosition": "59,0",
+        "scrollLine": "29"
     },
     "folds": "",
-    "lastKnownWriteTime": 1653433978,
+    "lastKnownWriteTime": 1663858097,
     "encoding": "UTF-8",
     "collab_server": "",
     "source_window": "",
-    "last_content_update": 1653433978,
+    "last_content_update": 1663858097707,
     "read_only": false,
     "read_only_alternatives": []
 }
